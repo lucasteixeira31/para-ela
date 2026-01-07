@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sinto Muito</title>
+
+  <style>
+    /* ZERA TUDO */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* FUNDO DA PÁGINA */
+    body {
+      background-color: #8e0318;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 0 0 0;
+      position: relative;
+    }
+
+    /* --- GIFS LATERAIS --- */
+    .decoracao-lateral {
+      position: fixed;
+      top: 0;
+      height: 100vh;
+      width: 220px; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center; 
+      align-items: center;
+      gap: 40px; 
+      z-index: 0; 
+      pointer-events: none; 
+      padding: 20px 0;
+    }
+
+    .lateral-esquerda { left: 10px; }
+    .lateral-direita { right: 10px; }
+
+    .decoracao-lateral img {
+      width: 100%;
+      max-width: 180px; 
+      opacity: 0.9;
+      transition: transform 0.3s ease;
+    }
+
+    @media (max-width: 1500px) {
+      .decoracao-lateral {
+        display: none;
+      }
+    }
+
+    /* TÍTULO */
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 3rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 10;
+      padding: 0 20px;
+    }
+
+    /* --- O PERGAMINHO CSS --- */
+    .pergaminho-container {
+      position: relative;
+      width: 90%;
+      max-width: 900px;
+      margin-bottom: 30px; 
+      z-index: 10;
+    }
+
+    /* O Papel do meio */
+    .papel {
+      background-color: #f4e4bc; 
+      box-shadow: inset 0 0 50px rgba(160, 82, 45, 0.3); 
+      padding: 60px 80px;
+      color: #3e2723; 
+      font-family: 'Georgia', serif; 
+      font-size: 1.2rem;
+      line-height: 1.8;
+      text-align: justify; 
+      position: relative;
+    }
+
+    /* Efeito de Rolo (Cilindro) no TOPO */
+    .rolo-topo {
+      height: 50px;
+      width: 106%; 
+      margin-left: -3%; 
+      background: linear-gradient(to bottom, #8b5a2b 0%, #deb887 50%, #8b5a2b 100%);
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 12;
+      margin-bottom: -20px; 
+    }
+    
+    .rolo-topo::before, .rolo-topo::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      width: 15px;
+      height: 40px;
+      background: #ffd700; 
+      border-radius: 5px;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+    .rolo-topo::before { left: 10px; }
+    .rolo-topo::after { right: 10px; }
+
+
+    /* Efeito de Rolo (Cilindro) na BASE */
+    .rolo-baixo {
+      height: 50px;
+      width: 106%;
+      margin-left: -3%;
+      background: linear-gradient(to bottom, #8b5a2b 0%, #deb887 50%, #8b5a2b 100%);
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 12;
+      margin-top: -20px; 
+    }
+
+    .rolo-baixo::before, .rolo-baixo::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      width: 15px;
+      height: 40px;
+      background: #ffd700;
+      border-radius: 5px;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+    .rolo-baixo::before { left: 10px; }
+    .rolo-baixo::after { right: 10px; }
+
+
+    /* --- TEXTOS DENTRO DO PERGAMINHO --- */
+    .saudacao {
+      font-weight: bold;
+      font-size: 1.6rem;
+      color: #8b0000; 
+      margin-bottom: 30px;
+      display: block;
+      text-align: center; 
+    }
+
+    .papel p {
+      margin-bottom: 20px;
+    }
+
+    .assinatura {
+      text-align: right;
+      font-style: italic;
+      font-weight: bold;
+      margin-top: 40px;
+      font-size: 1.3rem;
+    }
+
+    /* --- ESTILO DOS BOTÕES --- */
+    .botao-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column; /* Empilha um embaixo do outro */
+      align-items: center;    /* Centraliza */
+      gap: 20px;              /* Espaço entre eles */
+      margin-top: 40px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 20;
+    }
+
+    .btn-mudar-ideia {
+      background-color: #27ae60; /* Verde esperança */
+      color: white;
+      padding: 15px 40px;
+      border-radius: 50px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      border: 2px solid #2ecc71;
+    }
+
+    .btn-mudar-ideia:hover {
+      background-color: #219150;
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(39, 174, 96, 0.6);
+    }
+
+    .btn-voltar {
+      background-color: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.8);
+      padding: 10px 30px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-voltar:hover {
+      background-color: white;
+      color: #8e0318;
+      border-color: white;
+      transform: scale(1.05);
+    }
+
+    /* RODAPÉ */
+    footer {
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding-bottom: 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    footer img {
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+    }
+
+    /* Celular */
+    @media (max-width: 768px) {
+      .papel {
+        padding: 40px 30px;
+        font-size: 1rem;
+      }
+      .rolo-topo, .rolo-baixo {
+        width: 100%;
+        margin-left: 0;
+      }
+      .pergaminho-container {
+        width: 95%;
+      }
+      .btn-mudar-ideia {
+        width: 90%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="decoracao-lateral lateral-esquerda">
+    <img src="embepokhoc.gif" alt="Gif">
+    <img src="me-cry.webp" alt="Gif">
+    <img src="hi.gif" alt="Gif">
+    <img src="anime.gif" alt="Gif">
+  </div>
+
+  <div class="decoracao-lateral lateral-direita">
+    <img src="sad-sad-cat.gif" alt="Gif">
+    <img src="gatito-llorando.gif" alt="Gif">
+    <img src="sad-cry.gif" alt="Gif">
+    <img src="broken-heart.gif" alt="Gif">
+  </div>
+
+  <h1>Sinto muito por isso</h1>
+
+  <div class="pergaminho-container">
+    
+    <div class="rolo-topo"></div>
+
+    <div class="papel">
+      <span class="saudacao">Larissa...</span>
+
+      <p>
+        Escrevo esta carta com o coração apertado, mas com a certeza de que tudo o que vivemos merece ser dito uma última vez. É difícil resumir em palavras o tamanho do sentimento que tenho por você, porque ele mora nos detalhes, nas pequenas coisas do dia a dia que agora parecem gigantes na minha memória.
+      </p>
+
+      <p>
+        Eu vou sentir falta de tudo. Do seu cabelo lindo, que eu tanto admirava. Da forma como você implica comigo — algo que, no fundo, eu sempre gostei, porque era a nossa dinâmica. Vou sentir falta até daquele seu jeito único de chegar da academia e perguntar se a bunda cresceu, esperando minha aprovação (que você sempre teve).
+      </p>
+
+      <p>
+        Sinto falta do seu lado carinhoso, da forma como você sempre me acolheu e cuidou de mim quando eu estava mal; você sempre foi meu porto seguro. Mas sinto falta também da nossa rotina leve: do tempo que passamos com nosso filho, vendo ele crescer entre nós, dos nossos lanches (que não eram poucos, né?) e daquela sua comidinha que eu amo tanto.
+      </p>
+
+      <p>
+        São as coisas simples que mais doem agora. Lembro da liberdade que tínhamos, das suas "porquices" que só mostravam o quanto estávamos à vontade um com o outro. Lembro de quando tomávamos banho juntos, sem segundas intenções, só pela companhia, jogando conversa fora enquanto a água caía e eu esfregava suas costas e espremia suas espinhas kkkk. Lembro de te fazer cosquinhas mesmo sabendo que você odiava, só para te ver rir e brigar comigo ao mesmo tempo. E sinto saudade até de ficarmos deitados assistindo a filmes e séries, mesmo aqueles péssimos, porque a companhia era o que importava.
+      </p>
+
+      <p>
+        Eu amo cada detalhe em você. Seus olhos, sua boca, e a conexão incrível que tínhamos no sexo. Eu te amei mais do que amei o meu próprio ser.
+      </p>
+
+      <p>
+        Reconheço minhas falhas e me sinto muito mal por ter esquecido as coisas que você me pedia, às vezes com tanta facilidade. Nunca foi por falta de amor, mas sei que isso pesou.
+      </p>
+
+      <p>
+        Por isso, termino esta carta num cruzamento de caminhos. Sei que o momento é de despedida e isso é muito sofrido para mim. Mas, se houver ainda uma faísca, se você me der uma chance, eu prometo dedicar minha vida a te fazer a mulher mais feliz do mundo, corrigindo onde errei.
+      </p>
+
+      <p>
+        Porém, se a sua decisão já estiver tomada e você realmente não quiser mais, eu vou aceitar. Eu deixo você ir embora, porque te amar também é querer te ver bem, mesmo que longe de mim. Só peço que, nesse caso, a gente mantenha o respeito por tudo o que construímos.
+      </p>
+
+      <div class="assinatura">
+        Do seu grande amor e pai do seu filho Lucas
+      </div>
+    </div>
+
+    <div class="rolo-baixo"></div>
+
+  </div>
+
+  <div class="botao-container">
+    <a href="carta.html" class="btn-mudar-ideia">Mudar de ideia</a>
+    
+    <a href="pag2.html" class="btn-voltar">Voltar</a>
+  </div>
+
+  <footer>
+    <img src="Capturar.png" alt="Fim">
+  </footer>
+<audio id="musicaFundo" loop>
+    <source src="Baco Exu do Blues - Sinfonia do Adeus (Prod. Bolin) - BACO EXU DO BLUES (youtube).mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const audio = document.getElementById('musicaFundo');
+    
+    // --- CONTROLE DE VOLUME AQUI ---
+    // Mude este número: 0.1 é baixo, 0.5 é médio, 1.0 é alto
+    audio.volume = 0.2; 
+
+    // Tenta tocar
+    audio.play().catch(error => {
+      // Se bloquear, espera o primeiro clique na tela
+      document.body.addEventListener('click', () => {
+        audio.play();
+      }, { once: true });
+    });
+  </script>
+</body>
+</html> 

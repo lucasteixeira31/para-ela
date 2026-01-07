@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tudo que amo em você</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            background-color: #ffe6e6;
+            background-image: linear-gradient(to bottom, #ffe6e6, #ffcccc);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinha no topo */
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- LAYOUT GERAL --- */
+        .main-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            width: 100%;
+            max-width: 1400px;
+            margin-top: 20px;
+        }
+
+        /* --- BARRAS LATERAIS DE GIFS --- */
+        .gif-sidebar {
+            flex: 0 0 180px; /* Largura fixa para os GIFs */
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: sticky;
+            top: 20px; /* Faz os gifs acompanharem a rolagem até certo ponto */
+        }
+
+        .gif-sidebar img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid #ffb3b3;
+            background-color: rgba(255,255,255,0.6);
+        }
+
+        /* --- CARTÃO CENTRAL (A LISTA) --- */
+        .lista-container {
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
+            border: 3px solid #ff4d4d;
+            position: relative;
+        }
+
+        /* Título */
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #d63384;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+        }
+
+        /* --- ESTILO DA LISTA NUMERADA --- */
+        ol {
+            counter-reset: li; /* Inicia o contador */
+            list-style: none; /* Remove números padrão feios */
+            padding: 0;
+        }
+
+        ol li {
+            position: relative;
+            margin-bottom: 18px;
+            padding: 15px 10px 15px 50px; /* Espaço para o número */
+            background: #fff0f5; /* Fundo rosinha claro */
+            border-radius: 10px;
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            transition: transform 0.2s;
+            border-left: 5px solid #d63384; /* Detalhe lateral */
+        }
+
+        ol li:hover {
+            transform: translateX(5px); /* Efeito ao passar o mouse */
+            background: #ffe6e6;
+        }
+
+        /* O Número Bonito */
+        ol li::before {
+            counter-increment: li;
+            content: counter(li);
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #d63384;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        /* Destaque para palavras chave (opcional) */
+        .highlight {
+            color: #d63384;
+            font-weight: 600;
+        }
+
+        /* --- BOTÃO VOLTAR --- */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn-voltar {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 12px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-voltar:hover {
+            background-color: #d63384;
+            transform: scale(1.05);
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 1024px) {
+            .gif-sidebar {
+                display: none; /* Esconde GIFs no celular/tablet para focar na lista */
+            }
+            .lista-container {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            ol li {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+
+        <div class="gif-sidebar left">
+            <img src="lovemiau-cats-love.webp" alt="Gif">
+            <img src="cat-love.webp" alt="Gif">
+            <img src="white-cat.gif" alt="Gif">
+            <img src="milk-and-mocha.gif" alt="Gif">
+        </div>
+
+        <div class="lista-container">
+            <h1>Coisas que eu amo em você...</h1>
+
+            <ol>
+                <li>Nossa <strong>família</strong> e a vida que construímos juntos.</li>
+                <li>O seu <strong>cabelo lindo</strong> que eu tanto admiro.</li>
+                <li>A forma como você implica comigo e a nossa dinâmica única.</li>
+                <li>Aquele seu ritual de chegar da academia e perguntar se a bunda cresceu.</li>
+                <li>O seu jeito carinhoso e como você me acolhe quando estou mal (meu porto seguro).</li>
+                <li>O tempo precioso que passamos com o <strong>Breno</strong>, vendo nosso filho crescer.</li>
+                <li>Nossos lanches frequentes (que são a melhor parte do dia).</li>
+                <li>A comidinha deliciosa que só você sabe fazer.</li>
+                <li>A nossa intimidade total, incluindo as suas "porquices" que mostram como somos livres um com o outro.</li>
+                <li>Nossos banhos juntos sem segundas intenções: conversando, eu esfregando suas costas e espremendo suas espinhas.</li>
+                <li>Te fazer cosquinhas só para te ver rir (mesmo sabendo que você odeia).</li>
+                <li>Ficar deitado assistindo a filmes e séries com você, mesmo quando são péssimos.</li>
+                <li>Cada detalhe do seu rosto, especialmente seus <strong>olhos</strong> e sua <strong>boca</strong>.</li>
+                <li>A nossa conexão incrível e a química perfeita no sexo.</li>
+                <li>O fato de amar você mais do que a mim mesmo.</li>
+                <li>Saber que você, o Breno e o nosso lar são a <strong>prioridade absoluta</strong> da minha vida.</li>
+                <li>Amo quando você finge que não está com ciúmes.</li>
+                <li><strong>Amo absolutamente TUDO em você.</strong></li>
+            </ol>
+
+            <div class="btn-container">
+                <a href="pag2.html" class="btn-voltar">Voltar</a>
+            </div>
+        </div>
+
+        <div class="gif-sidebar right">
+            <img src="peach-and-goma-hug.gif" alt="Gif">
+            <img src="cute-cats.webp" alt="Gif">
+            <img src="love-you-love.gif" alt="Gif">
+            <img src="peach-goma.webp" alt="Gif">
+        </div>
+
+    </div>
+
+</body>
+</html>
+</script>
+    <audio id="musicaFundo" loop>
+    <source src="Oração - A Banda Mais Bonita da Cidade - Neide Gama (youtube).mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // SCRIPT PARA A MÚSICA TOCAR
+    const audio = document.getElementById('musicaFundo');
+    
+    // Define o volume (0.0 a 1.0). 0.3 é um volume ambiente agradável.
+    audio.volume = 0.2  ;
+
+    // Tenta tocar assim que a página abre
+    const promessa = audio.play();
+
+    if (promessa !== undefined) {
+      promessa.then(_ => {
+        // Autoplay funcionou!
+        console.log("Música tocando automaticamente.");
+      }).catch(error => {
+        // Autoplay foi bloqueado pelo navegador.
+        // Vamos esperar o primeiro clique/toque na tela para iniciar.
+        console.log("Aguardando interação para tocar...");
+        document.body.addEventListener('click', () => {
+          audio.play();
+        }, { once: true }); // {once: true} garante que o evento só ocorra uma vez
+      });
+    }
+  </script>

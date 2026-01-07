@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Você</title>
+
+  <style>
+    /* ZERA TUDO */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* FUNDO DA PÁGINA */
+    body {
+      background-color: #8e0318;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 0 0 0;
+      position: relative;
+    }
+
+    /* --- ESTILO DOS GIFS LATERAIS --- */
+    .decoracao-lateral {
+      position: fixed;
+      top: 0;
+      height: 100vh;
+      width: 220px; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center; 
+      align-items: center;
+      gap: 40px; 
+      z-index: 0; 
+      pointer-events: none; 
+      padding: 20px 0;
+    }
+
+    .lateral-esquerda { left: 10px; }
+    .lateral-direita { right: 10px; }
+
+    .decoracao-lateral img {
+      width: 100%;
+      max-width: 180px; 
+      opacity: 0.9;
+      transition: transform 0.3s ease;
+    }
+
+    @media (max-width: 1700px) {
+      .decoracao-lateral {
+        display: none;
+      }
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+      padding: 0 20px;
+    }
+
+    /* --- TÍTULO SECUNDÁRIO --- */
+    h2 {
+      color: white;
+      text-align: center;
+      margin-top: 80px;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      padding-top: 50px;
+      max-width: 1600px;
+    }
+
+    /* --- ÁREA DOS VÍDEOS (TOPO) --- */
+    .videos-topo {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+      max-width: 1000px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+      transition: z-index 0s;
+    }
+    
+    .videos-topo:hover {
+        z-index: 50;
+    }
+
+    .videos-topo .card {
+      width: 400px;
+      max-width: 90vw;
+      background: black;
+    }
+
+    .videos-topo .card video {
+      height: 500px;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .videos-topo .card:hover {
+      transform: scale(1.3);
+      z-index: 9999;
+      border: 2px solid white;
+      box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.9);
+    }
+
+
+    /* --- ÁREA DAS FOTOS --- */
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 1200px;
+      width: 100%;
+      justify-items: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .galeria:hover {
+        z-index: 50;
+    }
+
+    .galeria-seis {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      max-width: 1600px;
+      width: 100%;
+      justify-items: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .galeria-seis:hover {
+        z-index: 50;
+    }
+
+
+    /* O CARTÃO PADRÃO */
+    .card {
+      background: black;
+      width: 320px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+    }
+
+    .galeria-seis .card {
+      width: 100%;
+      max-width: 200px;
+    }
+
+    .galeria .card img,
+    .galeria-seis .card img {
+      width: 100%;
+      height: 400px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .galeria .card:hover,
+    .galeria-seis .card:hover {
+      transform: scale(1.8);
+      z-index: 9999;
+      border: 2px solid white;
+      box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.9);
+    }
+
+    /* TEXTO */
+    .descricao {
+      padding: 15px;
+      text-align: center;
+      background: white;
+    }
+
+    .descricao h3 {
+      color: #8e0318;
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .descricao p {
+      color: #333;
+      font-size: 0.8rem;
+      display: none;
+    }
+
+    .card:hover .descricao p {
+      display: block;
+      font-size: 0.7rem;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .card:hover .descricao h3 {
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* --- ÁREA DOS BOTÕES FINAIS --- */
+    .botoes-finais {
+      display: flex;
+      justify-content: space-between; /* Espalha: Esq - Centro - Dir */
+      align-items: center;
+      width: 100%;
+      max-width: 1600px;
+      padding: 50px 40px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .botao-geral {
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s, background-color 0.2s;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      display: inline-block; 
+      min-width: 180px; /* Garante tamanho mínimo padrão */
+    }
+
+    .botao-vermelho {
+      background-color: #c0392b;
+    }
+    .botao-vermelho:hover {
+      background-color: #a93226;
+      transform: scale(1.05);
+    }
+
+    .botao-verde {
+      background-color: #27ae60;
+    }
+    .botao-verde:hover {
+      background-color: #219150;
+      transform: scale(1.05);
+    }
+
+    /* NOVO: BOTÃO AZUL PARA LISTA */
+    .botao-azul {
+        background-color: #3498db;
+    }
+    .botao-azul:hover {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    /* --- RODAPÉ --- */
+    footer {
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      background: transparent;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    footer img {
+      width: 100%;
+      max-width: 250px;
+      height: 100px;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    /* --- POPUP E OVERLAY --- */
+    .modal-overlay {
+      display: none; 
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 20000;
+      justify-content: center;
+      align-items: center;
+      animation: fadeInModal 0.3s ease;
+    }
+
+    .modal-box {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border: 4px solid #8e0318;
+    }
+
+    .modal-box h3 {
+      color: #8e0318;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .modal-box p {
+      color: #555;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .modal-botoes {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .btn-modal {
+      padding: 10px 25px;
+      border-radius: 50px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.2s;
+    }
+
+    .btn-recusar {
+      background-color: #27ae60;
+      color: white;
+    }
+    .btn-aceitar {
+      background-color: #999;
+      color: white;
+    }
+    .btn-modal:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeInModal {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .sad-overlay {
+        display: none; 
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: black; 
+        z-index: 99999; 
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        animation: fadeInSlow 1s ease;
+    }
+
+    .sad-overlay img {
+        max-width: 80%;
+        max-height: 80vh;
+        object-fit: contain;
+        border-radius: 10px;
+    }
+    
+    .sad-overlay p {
+        color: white;
+        margin-top: 20px;
+        font-size: 1.5rem;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    @keyframes fadeInSlow {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* MEDIA QUERIES */
+    @media (max-width: 1400px) {
+      .galeria-seis {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .galeria {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      .galeria-seis {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .videos-topo {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .videos-topo .card {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .videos-topo .card video {
+        height: 400px;
+      }
+
+      .card:hover,
+      .videos-topo .card:hover,
+      .galeria-seis .card:hover {
+        transform: scale(1.1);
+      }
+
+      .botoes-finais {
+        flex-direction: column-reverse; /* Empilha no celular */
+        gap: 20px;
+      }
+
+      .botao-geral {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      footer img {
+        height: 90px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="decoracao-lateral lateral-esquerda">
+    <img src="e-bíe-linh-cute.gif" alt="Gif">
+    <img src="dublin-i-love-dublin.gif" alt="Gif">
+    <img src="happy-holidays.gif" alt="Gif">
+    <img src="dog-puppy.gif" alt="Gif">
+  </div>
+
+  <div class="decoracao-lateral lateral-direita">
+    <img src="sentient-dogs.gif" alt="Gif">
+    <img src="dublin-i-love-dublin.gif" alt="Gif">
+    <img src="sbefin-saban.gif" alt="Gif">
+    <img src="gorrila-dancing.gif" alt="Gif">
+  </div>
+
+  <h1>Obrigado por ter escolhido essa opção meu amor ❤️</h1>
+
+  <div class="videos-topo">
+    <div class="card">
+      <video autoplay muted loop playsinline>
+        <source src="1.mp4" type="video/mp4">
+      </video>
+      <div class="descricao">
+        <h3> Sua dancinha</h3>
+        <p>não vou mentir mas achei super sexi e engraçada</p>
+      </div>
+    </div>
+    <div class="card">
+      <video autoplay muted loop playsinline>
+        <source src="2.mp4" type="video/mp4">
+      </video>
+      <div class="descricao">
+        <h3> Encontro</h3>
+        <p>amo o jeito que vc enjoa de doce e sobra pra eu comer</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="galeria">
+    <div class="card">
+      <img src="3.jpeg" alt="Foto 3">
+      <div class="descricao">
+        <h3> nosso embate</h3>
+        <p>Ele parece mais comigo ou com você?</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="5.jpeg" alt="Foto 4">
+      <div class="descricao">
+        <h3> Os amores da minha vida</h3>
+        <p>Nunca fui tão feliz em ver o amor entre vocês</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="6.jpeg" alt="Foto 5">
+      <div class="descricao">
+        <h3> Nosso lanche mensal</h3>
+        <p>Família feliz por comer burguinho</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="12.jpeg" alt="Foto 6">
+      <div class="descricao">
+        <h3> mais felicidade por comer</h3>
+        <p>Momento especial demais em familia no Outback</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="nos dois.jpeg" alt="Foto 7">
+      <div class="descricao">
+        <h3> Nós Dois</h3>
+        <p>Vai falar que realmente existe casal mais bonito que a gente? Não acredita, veja a proxima foto</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="nos dois dois.jpeg" alt="Foto 8">
+      <div class="descricao">
+        <h3> eu te falei</h3>
+        <p>somos perfeitos juntos</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="provas.jpeg" alt="Foto 9">
+      <div class="descricao">
+        <h3> E olha que tenho mais provas</h3>
+        <p>Não preciso nem falar mais nada ne?</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="esilo.jpeg" alt="Foto 9">
+      <div class="descricao">
+        <h3> Juntos somos o puro suco do estilo</h3>
+        <p>Feitos um pro outro</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="adrenalina.jpeg" alt="Foto 9">
+      <div class="descricao">
+        <h3>Amamos a adrenalina</h3>
+        <p>sempre rende boas risadas.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="14.jpeg" alt="Foto 9">
+      <div class="descricao">
+        <h3>Ate o Breno ama kkkk</h3>
+        <p>olha como ele curtiu o carnaval.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="cobaia.jpeg" alt="Foto 9">
+      <div class="descricao">
+        <h3>Amo quando me faz de cobaia</h3>
+        <p>fico bravo, mas seria mentira dizer que não gosto.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="provador.jpeg" alt="Foto 9">
+      <div class="descricao">
+        <h3>Lembra do dia do provador?</h3>
+        <p>vc estava gravida mas rendeu um negocio legal rsrs.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="fantasia.jpeg" alt="Foto 9">
+      <div class="descricao">
+        <h3>ESSA FESTINHA AQUI EM KKKK</h3>
+        <p>sekiso e coisas impuras.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="sss.jpeg" alt="Foto 9">
+      <div class="descricao">
+        <h3>vc com cara de "até quando senhor"</h3>
+        <p>pe que tava mega empolado com celular novo kkkkk</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="13.jpeg" alt="Foto 9">
+      <div class="descricao">
+        <h3> lembra do quanto foi bom nosso dia do clube?</h3>
+        <p>bebemos muito e o Breno amou. ainda cagou na agua kkkk </p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="16.jpeg" alt="Foto 9">
+      <div class="descricao">
+        <h3> esse video foi encenação </h3>
+        <p>mas é o mais perto de que consigo te mostrar a forma que te olho toda vez que esta espetacularmente linda</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="77.jpg" alt="Foto 9">
+      <div class="descricao">
+        <h3> Amava ter que te ajudar a validar algum site </h3>
+        <p> era sempre muito engraçado</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="barrigudo.jpeg" alt="Foto 9">
+      <div class="descricao">
+        <h3> E esse reizeinho barrigudo aqui </h3>
+        <p> era tão fofuchinho e é o nosso amor compartilhado, nosso laço de amor</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Mais alguns de nossos momentos</h2>
+
+  <div class="galeria-seis">
+    <div class="card">
+      <img src="11 (2).jpeg" alt="Foto Nova">
+      <div class="descricao"></div>
+    </div>
+    <div class="card">
+      <img src="123.jpeg" alt="Foto Nova">
+      <div class="descricao"></div>
+    </div>
+    <div class="card">
+      <img src="12 (2).jpeg" alt="Foto Nova">
+      <div class="descricao"></div>
+    </div>
+    <div class="card">
+      <img src="44.jpeg" alt="Foto Nova">
+      <div class="descricao"></div>
+    </div>
+    <div class="card">
+      <img src="55.jpeg" alt="Foto Nova">
+      <div class="descricao"></div>
+    </div>
+    <div class="card">
+      <img src="66.jpeg" alt="Foto Nova">
+      <div class="descricao"></div>
+    </div>
+    <div class="card">
+      <img src="77.jpeg" alt="Foto Nova">
+      <div class="descricao"></div>
+    </div>
+    <div class="card">
+      <img src="88.jpeg" alt="Foto Nova">
+      <div class="descricao"></div>
+    </div>
+    <div class="card">
+      <img src="99.jpeg" alt="Foto Nova">
+      <div class="descricao"></div>
+    </div>
+    <div class="card">
+      <img src="1010.jpeg" alt="Foto Nova">
+      <div class="descricao"></div>
+    </div>
+    <div class="card">
+      <img src="1111.jpeg" alt="Foto Nova">
+      <div class="descricao"></div>
+    </div>
+    <div class="card">
+      <img src="1212.jpeg" alt="Foto Nova">
+      <div class="descricao"></div>
+    </div>
+  </div>
+
+  <div class="botoes-finais">
+    
+    <a href="#" class="botao-geral botao-vermelho" onclick="abrirPopUp()">Desistir</a>
+
+    <a href="lista.html" class="botao-geral botao-azul">Lista</a>
+
+    <a href="carta.html" class="botao-geral botao-verde">Não desistir da gente</a>
+  
+  </div>
+
+  <footer>
+    <img src="Capturar.png" alt="Fim">
+  </footer>
+
+  <div id="meuPopup" class="modal-overlay">
+    <div class="modal-box">
+      <h3>Tem certeza?</h3>
+      <p>Você quer mesmo desistir de tudo isso?</p>
+      <div class="modal-botoes">
+        <button class="btn-modal btn-recusar" onclick="fecharPopUp()">Recusar</button>
+        <button class="btn-modal btn-aceitar" onclick="irParaDesistirComTristeza()">Aceitar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="overlayTriste" class="sad-overlay">
+    <img src="https://media.tenor.com/2X30k0kLqXoAAAAM/sad-cat-crying.gif" alt="Tristeza">
+    <p>Sinto muito...</p>
+  </div>
+
+  <audio id="musicaFundo" loop>
+    <source src="CLARICE FALCÃO - OITAVO ANDAR - Porta dos Fundos (youtube).mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function abrirPopUp() {
+      document.getElementById('meuPopup').style.display = 'flex';
+    }
+
+    function fecharPopUp() {
+      document.getElementById('meuPopup').style.display = 'none';
+    }
+
+    function irParaDesistirComTristeza() {
+      document.getElementById('meuPopup').style.display = 'none';
+      const overlay = document.getElementById('overlayTriste');
+      overlay.style.display = 'flex';
+      setTimeout(function() {
+          window.location.href = "desistir.html";
+      }, 3500); 
+    }
+
+    const audio = document.getElementById('musicaFundo');
+    if(audio) {
+        audio.volume = 0.3; 
+        audio.play().catch(error => {
+            document.body.addEventListener('click', () => {
+                audio.play();
+            }, { once: true });
+        });
+    }
+  </script>
+
+
+</body>
+</html>

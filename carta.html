@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o Amor da Minha Vida</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            background-color: #ffe6e6;
+            background-image: linear-gradient(to bottom, #ffe6e6, #ffcccc);
+            margin: 0;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            position: relative; 
+        }
+
+        /* --- ESTILO PARA OS GIFS LATERAIS --- */
+        .gif-sidebar {
+            flex: 0 0 180px; 
+            /* AJUSTADO: 100px é suficiente agora que temos só uma coluna de fotos */
+            margin: 0 100px; 
+            align-self: center; 
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; 
+        }
+
+        .gif-sidebar img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: block;
+            border: 2px solid #ffb3b3; 
+            background-color: rgba(255,255,255,0.5); 
+        }
+
+        .main-wrapper {
+            display: flex;
+            align-items: flex-start; 
+            justify-content: center;
+            gap: 40px; /* Um pouco mais de espaço entre a coluna de fotos e a carta */
+            width: 100%;
+            max-width: 1400px;
+            position: relative;
+            z-index: 10;
+            margin-top: 20px; 
+        }
+
+        /* --- CONFIGURAÇÃO DAS COLUNAS LATERAIS (ÚNICA COLUNA POR LADO) --- */
+        .side-column {
+            flex: 0 0 250px; 
+            display: flex;
+            flex-direction: column; /* GARANTE QUE FIQUEM UM EM CIMA DO OUTRO */
+            gap: 30px; /* Espaço entre a foto, o texto e as outras fotos */
+        }
+
+        .side-column.left-col {
+            align-items: flex-end; /* Cola tudo na margem da carta (direita da coluna) */
+        }
+
+        .side-column.right-col {
+            align-items: flex-start; /* Cola tudo na margem da carta (esquerda da coluna) */
+        }
+
+        .side-column .sidebar {
+            width: 100%;
+        }
+
+        /* --- ESTILO DO TEXTO VERTICAL --- */
+        .vertical-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem; 
+            color: #d63384; 
+            font-weight: 700;
+            line-height: 1;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            letter-spacing: 0.1em;
+            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.5);
+            text-transform: uppercase; 
+            /* Garante que o texto não "estique" a largura da coluna */
+            align-self: center; 
+        }
+
+        /* Ajustes finos para colar o texto na carta */
+        .side-column.left-col .vertical-text {
+            align-self: flex-end;
+            margin-right: -15px;
+        }
+
+        .side-column.right-col .vertical-text {
+            align-self: flex-start;
+            margin-left: -15px;
+        }
+
+        /* Estilos dos Cards das Fotos */
+        .sidebar {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 2px solid #ffb3b3;
+            height: fit-content; 
+        }
+
+        .sidebar img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .caption {
+            margin-top: 15px;
+            color: #d63384;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            flex: 1 1 auto; 
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            border: 2px solid #ff4d4d;
+            margin-bottom: 90px; 
+        }
+
+        .btn-voltar {
+            position: absolute;
+            bottom: -80px; 
+            left: 50%;
+            transform: translateX(-50%); 
+            background-color: #ff4d4d;
+            color: white;
+            padding: 12px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            z-index: 20;
+        }
+
+        .btn-voltar:hover {
+            background-color: #d63384;
+            transform: translateX(-50%) scale(1.1);
+            box-shadow: 0 8px 20px rgba(214, 51, 132, 0.5);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #d63384;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            margin-top: 0; 
+        }
+
+        .gif-container {
+            margin: 20px 0;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            border-radius: 15px;
+            height: auto;
+            width: 250px;
+        }
+
+        .letter-content {
+            text-align: left;
+            line-height: 1.9;
+            color: #555;
+            margin-top: 30px;
+            font-size: 1.2rem;
+        }
+
+        .letter-content p {
+            margin-bottom: 20px;
+            text-indent: 40px;
+        }
+
+        .highlight {
+            color: #d63384;
+            font-weight: 600;
+        }
+
+        .signature {
+            margin-top: 50px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #d63384;
+            text-align: center;
+        }
+
+        .heart {
+            position: fixed;
+            top: -10px;
+            color: #ff4d4d;
+            font-size: 20px;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh);
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 1450px) { 
+             .gif-sidebar { display: none; } 
+        }
+
+        @media (max-width: 1024px) {
+            body { align-items: flex-start; }
+            .main-wrapper { flex-direction: column; align-items: center; }
+            
+            .side-column { 
+                width: 100%; 
+                max-width: 400px; 
+                align-items: center !important; 
+                flex: 1 1 auto; 
+                margin-bottom: 20px; 
+            }
+
+            .side-column.left-col { order: 2; }
+            .side-column.right-col { order: 3; }
+            .container { order: 1; padding: 30px; max-width: 100%; }
+
+            .vertical-text {
+                writing-mode: horizontal-tb;
+                text-orientation: mixed;
+                font-size: 2rem; 
+                margin: 20px 0 !important;
+                text-align: center;
+                align-self: center !important; /* Centraliza no mobile */
+            }
+
+            h1 { font-size: 2.8rem; }
+            .letter-content { font-size: 1rem; }
+            .letter-content p { text-indent: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gif-sidebar left-gif">
+        <img src="lovemiau-cats-love.webp" alt="GIF Lateral Esquerda">
+        <img src="cat-love.webp" alt="GIF Lateral Esquerda">
+        <img src="e-bíe-linh-cute.gif" alt="GIF Lateral Esquerda">
+        <img src="white-cat.gif" alt="GIF Lateral Esquerda">
+        <img src="love-love-you.gif" alt="GIF Lateral Esquerda">
+        <img src="saa.gif" alt="GIF Lateral Esquerda">
+        <img src="milk-and-mocha-milk-mocha.gif" alt="GIF Lateral Esquerda">
+        <img src="s.gif" alt="GIF Lateral Esquerda">
+        <img src="mocha-bear-kiss-bear-bandaid.gif" alt="GIF Lateral Esquerda">
+        <img src="peach-and-goma-hug.gif" alt="GIF Lateral Esquerda">
+        <img src="milk-and-mocha.gif" alt="GIF Lateral Esquerda">
+        <img src="milk-mocha-bear.gif" alt="GIF Lateral Esquerda">
+        <img src="lpg (1).gif" alt="GIF Lateral Esquerda">
+        <img src="witch-watch.gif" alt="GIF Lateral Esquerda">
+        <img src="cat-love.webp" alt="GIF Lateral Esquerda">
+        <img src="bear-hug.gif" alt="GIF Lateral Esquerda">
+        <img src="kiss-love.gif" alt="GIF Lateral Esquerda">
+    </div>
+
+
+    <div class="main-wrapper">
+
+        <div class="side-column left-col">
+            <div class="sidebar">
+                <img src="c1.png" alt="Nossa Foto 1">
+                <p class="caption">Me diga com todas as palavras... -- >  </p>
+            </div>
+            
+            
+
+            <div class="sidebar">
+                <img src="c11.png" alt="Foto Extra 1">
+                
+            </div>
+            <div class="sidebar">
+                <img src="c33.png" alt="Foto Extra 2">
+                
+            </div>
+             <div class="sidebar">
+                <img src="c44.png" alt="Foto Extra 3">
+                
+            </div>
+            <div class="sidebar">
+                <img src="unnamed.jpg" alt="Foto Extra 3">
+                
+            </div>
+        </div>
+
+
+        <div class="container">
+            <h1>Larissa...</h1>
+            
+            <div class="gif-container">
+                <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Amor">
+            </div>
+
+            <div class="letter-content">
+                <p>Escrevo esta carta não para falar de despedidas, mas para falar de recomeços e, principalmente, de felicidade. A felicidade que eu só encontro ao seu lado e que eu quero construir, dia após dia, com você.</p>
+
+                <p>Eu olho para você e vejo tudo o que eu amo. Amo seu cabelo lindo, amo a forma como você implica comigo (e, no fundo, eu adoro essa nossa dinâmica). Amo aquela sua rotina de chegar da academia e perguntar se a bunda cresceu, esperando meu elogio — que sempre será sincero, porque você é perfeita para mim.</p>
+                
+                <p>Amo seu jeito carinhoso, a forma como você me acolhe e cuida de mim quando estou mal; <span class="highlight">você é meu porto seguro.</span></p>
+
+                <p>Amo a vida que construímos. O tempo que passamos com o nosso filho, vendo ele crescer. Amo nossos lanches — que são frequentes, eu sei, mas são a melhor parte do dia —, amo a comidinha que você faz e até as suas "porquices", que só mostram a intimidade que temos.</p> 
+                
+                <p>Amo nossos banhos juntos sem segundas intenções, onde ficamos jogando conversa fora, eu esfrego suas costas e espremo suas espinhas. Amo te fazer cosquinhas, mesmo sabendo que você odeia, só para te ouvir rir. Amo ficar deitado vendo séries e filmes com você, mesmo aqueles péssimos, porque qualquer coisa ao seu lado fica boa.</p>
+
+                <p>Eu amo cada detalhe em você. Seus olhos, sua boca, a nossa conexão incrível no sexo e o quanto eu te amo, mais do que a mim mesmo.</p>
+
+                <p>Reconheço que tenho falhas. Me sinto mal por esquecer as coisas que você me pede com tanta facilidade, e sei que preciso melhorar. Quero te pedir perdão por tudo o que aconteceu antes e, principalmente, por ter me tornado, em alguns momentos, um cara que você não tem admirado. <strong>Mas eu estou aqui para dizer que isso vai mudar.</strong></p>
+
+                <p>Estou disposto a fazer de você a mulher mais feliz do mundo. Sei que todo relacionamento tem problemas, mas estou pronto para encarar cada um deles e te defender de cada insegurança que surgir. Minha meta não é só a sua felicidade, mas a do <strong>Breno</strong> e a do nosso relacionamento.</p>
+
+                <p>Estou disposto a tudo: a fazer terapia de casal, a conhecer lugares diferentes, a fazer planos novos, a ter "dates" ruins e magníficos, desde que seja com você. Quero que você sinta, em cada atitude minha, que sou o homem que faria qualquer coisa para ver você e nossa família felizes.</p>
+
+                <p>Vou lutar com todas as minhas forças para que você me ame e me valorize da mesma forma intensa que eu te amo e te valorizo. Prometo te ajudar em tudo o que você precisar, parando o que eu estiver fazendo para te dar atenção.</p>
+
+                <p class="highlight">Quero deixar gravado: você, o Breno e a nossa família são e sempre serão a prioridade absoluta da minha vida. Eu não quero mais ninguém além de vocês.</p>
+
+                <p>Não quero nada que não seja dar uma vida boa, próspera e em paz para nós. Eu escolho você, hoje e sempre.</p>
+            </div>
+
+            <div class="signature">
+                Com todo o meu amor,<br>
+                Lucas
+            </div>
+
+            <a href="pag2.html" class="btn-voltar">Voltar</a>
+        </div>
+
+        <div class="side-column right-col">
+             <div class="sidebar">
+                <img src="c2.png" alt="Nossa Foto 2">
+                <p class="caption">Isso aqui não é o sonho da sua vida?</p>
+            </div>
+            
+            
+
+            <div class="sidebar">
+                <img src="c66.webp" alt="Foto Extra 4">
+                
+            </div>
+            <div class="sidebar">
+                <img src="c66.png" alt="Foto Extra 5">
+                
+            </div>
+             <div class="sidebar">
+                <img src="c88.png" alt="Foto Extra 6">
+                
+            </div>
+        </div>
+
+    </div>
+
+    <div class="gif-sidebar right-gif">
+        <img src="peach-and-goma-hug.gif" alt="GIF Lateral direita">
+        <img src="perro.gif" alt="GIF Lateral direita">
+        <img src="cute-cats.webp" alt="GIF Lateral direita">
+        <img src="cutecats-kitten.gif" alt="GIF Lateral direita">
+        <img src="proxima.gif" alt="GIF Lateral direita">
+        <img src="love-you-love.gif" alt="GIF Lateral direita">
+        <img src="pawsum-playpawsum.webp" alt="GIF Lateral direita">
+        <img src="peach-and-goma-hug.gif" alt="GIF Lateral direita">     
+        <img src="peach-goma.webp" alt="GIF Lateral Esquerda">
+        <img src="peach-goma-love-pat-head-cheek.webp" alt="GIF Lateral direita">
+        <img src="white-cat.gif" alt="GIF Lateral direita">
+        <img src="dog-twerk.gif" alt="GIF Lateral direita">
+        <img src="proxima 1.gif" alt="GIF Lateral direita">
+        <img src="proxima 3.gif" alt="GIF Lateral direita">
+        <img src="proxima 4.gif" alt="GIF Lateral direita">
+        <img src="proxima 6.gif" alt="GIF Lateral direita">   
+        <img src="por.gif" alt="GIF Lateral direita">   
+     </div>
+
+    <script>
+        /* --- EFEITO DE CORAÇÕES --- */
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's'; 
+            heart.style.opacity = Math.random();
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300); 
+
+        /* --- FOGOS DE ARTIFÍCIO NA FRENTE --- */
+        var duration = 5 * 1000;
+        var animationEnd = Date.now() + duration;
+        var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+
+        function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        var interval = setInterval(function() {
+            var timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
+            }
+
+            var particleCount = 50 * (timeLeft / duration);
+            
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+        }, 250);
+    </script>
+    <audio id="musicaFundo" loop>
+    <source src="Velha Infância (2004 Digital Remaster) - Tribalistas (youtube).mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // SCRIPT PARA A MÚSICA TOCAR
+    const audio = document.getElementById('musicaFundo');
+    
+    // Define o volume (0.0 a 1.0). 0.3 é um volume ambiente agradável.
+    audio.volume = 0.2  ;
+
+    // Tenta tocar assim que a página abre
+    const promessa = audio.play();
+
+    if (promessa !== undefined) {
+      promessa.then(_ => {
+        // Autoplay funcionou!
+        console.log("Música tocando automaticamente.");
+      }).catch(error => {
+        // Autoplay foi bloqueado pelo navegador.
+        // Vamos esperar o primeiro clique/toque na tela para iniciar.
+        console.log("Aguardando interação para tocar...");
+        document.body.addEventListener('click', () => {
+          audio.play();
+        }, { once: true }); // {once: true} garante que o evento só ocorra uma vez
+      });
+    }
+  </script>
+</body>
+</html>

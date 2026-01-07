@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sim ou Não</title>
+
+  <style>
+    /* RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    /* BODY */
+    body {
+      height: 100vh;
+      background: #8e0318;
+      display: flex;
+      justify-content: space-between; 
+      align-items: center;
+      overflow: hidden; 
+    }
+
+    /* --- LATERAIS (ESQUERDA E DIREITA) --- */
+    aside {
+      width: 20%; 
+      height: 100%;
+      display: none; /* Esconde no celular */
+      flex-direction: column;
+      justify-content: center; 
+      align-items: center;
+      gap: 30px; 
+      padding: 20px;
+      z-index: 1; 
+      pointer-events: none; 
+    }
+
+    /* --- COLUNA CENTRAL --- */
+    .coluna-central {
+      display: flex;
+      flex-direction: column;
+      /* Mudei para center para organizar melhor a foto com o resto */
+      justify-content: center; 
+      align-items: center;
+      height: 100%;
+      flex-grow: 1;
+      z-index: 10;
+      gap: 20px; /* Espaço entre a foto, o texto e os gifs de baixo */
+      padding: 20px 0;
+    }
+
+    /* --- NOVO ESTILO DA FOTO DE VOCÊS --- */
+    .container-foto {
+      z-index: 20;
+      margin-bottom: 10px;
+    }
+
+    .foto-casal {
+      width: 300px;       /* Tamanho da foto */
+      max-width: 80vw;    /* Não estoura a tela do celular */
+      height: auto;
+      border-radius: 20px; /* Bordas redondinhas */
+      border: 5px solid white; /* Borda branca tipo porta-retrato */
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* Sombra para destacar */
+      object-fit: cover;
+    }
+
+    /* --- GIFS HORIZONTAIS (SÓ O DE BAIXO AGORA) --- */
+    .gifs-horizontais {
+      display: none; /* Esconde no celular */
+      flex-direction: row;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px;
+      width: 100%;
+      pointer-events: none; 
+    }
+
+    /* ESTILO GERAL DOS GIFS */
+    img.gif-decorativo {
+      width: 150px; 
+      max-width: 100%;
+      object-fit: contain;
+      opacity: 0.9;
+      transition: transform 0.3s ease;
+    }
+    
+    img.gif-decorativo:hover {
+      transform: scale(1.1);
+    }
+
+    /* --- ÁREA DO JOGO (TEXTO E BOTÕES) --- */
+    .area-jogo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    /* TEXTO */
+    .message {
+      font-size: 1.8rem;
+      color: white;
+      text-align: center;
+      padding: 0 20px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      font-weight: bold;
+    }
+
+    /* BOTÕES */
+    .buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      width: 140px;
+      height: 45px;
+      background: white;
+      border: 3px solid #5b0000;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      z-index: 50; 
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      border-radius: 50px; /* Deixei o botão mais redondinho */
+    }
+
+    #sim {
+      transition: all 0.1s ease; 
+    }
+
+    /* --- RESPONSIVIDADE (TABLET E PC) --- */
+    @media (min-width: 768px) {
+      .coluna-central {
+        justify-content: space-between; /* No PC espalha mais */
+      }
+      
+      .message { font-size: 2.5rem; }
+      button { width: 200px; height: 55px; }
+
+      aside, .gifs-horizontais {
+        display: flex; 
+      }
+      
+      .foto-casal {
+        width: 350px; /* Foto maior no PC */
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <aside>
+    <img class="gif-decorativo" src="cry-crying.gif" alt="Gif">
+    <img class="gif-decorativo" src="spongebob-crying.webp" alt="Gif">
+  </aside>
+
+  <div class="coluna-central">
+    
+    <div class="container-foto">
+        <img class="foto-casal" src="velinhos.png" alt="Nossa Foto">
+    </div>
+
+    <div class="area-jogo">
+      <div class="message">Tem certeza que quer desistir da gente?</div>
+      <div class="buttons">
+        <button id="sim">SIM</button>
+        <button id="nao">NÃO</button>
+      </div>
+    </div>
+
+    <div class="gifs-horizontais">
+      <img class="gif-decorativo" src="embepokhoc.gif" alt="Gif Baixo">
+      <img class="gif-decorativo" src="banana-cat-banana-cat-crying.gif" alt="Gif Baixo">
+      <img class="gif-decorativo" src="crying-cat-sad-cat (1).gif" alt="Gif Baixo">
+    </div>
+
+  </div>
+
+  <aside>
+    <img class="gif-decorativo" src="cry-sad.webp" alt="Gif">
+    <img class="gif-decorativo" src="crying-harlas.webp" alt="Gif">
+  </aside>
+
+  <script>
+    const btnSim = document.getElementById("sim");
+    const btnNao = document.getElementById("nao");
+
+    function fugir() {
+      // Pega tamanho da tela
+      const larguraJanela = window.innerWidth;
+      const alturaJanela = window.innerHeight;
+      
+      // Tamanho do botão
+      const larguraBtn = btnSim.offsetWidth;
+      const alturaBtn = btnSim.offsetHeight;
+      
+      // Posição do botão NÃO (para não ficar em cima dele)
+      const rectNao = btnNao.getBoundingClientRect();
+
+      let novaEsquerda, novaTopo;
+      let colidiu = true;
+
+      while (colidiu) {
+        // Gera posições aleatórias
+        novaEsquerda = Math.random() * (larguraJanela - larguraBtn);
+        novaTopo = Math.random() * (alturaJanela - alturaBtn);
+
+        const simEsquerda = novaEsquerda;
+        const simDireita = novaEsquerda + larguraBtn;
+        const simTopo = novaTopo;
+        const simBaixo = novaTopo + alturaBtn;
+
+        // Verifica colisão apenas com o botão NÃO
+        if (
+          simDireita < rectNao.left || 
+          simEsquerda > rectNao.right || 
+          simBaixo < rectNao.top || 
+          simTopo > rectNao.bottom 
+        ) {
+          colidiu = false; 
+        }
+      }
+
+      btnSim.style.position = "absolute";
+      btnSim.style.left = `${novaEsquerda}px`;
+      btnSim.style.top = `${novaTopo}px`;
+    }
+
+    btnSim.addEventListener("mouseover", fugir); 
+    btnSim.addEventListener("touchstart", (e) => { 
+       e.preventDefault(); 
+       fugir();
+    });
+    
+    btnNao.addEventListener("click", () => {
+       window.location.href ="pag2.html"
+    });
+  </script>
+
+</body>
+</html>
