@@ -3,246 +3,202 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sim ou Não</title>
+  <title>Bilhete</title>
 
   <style>
-    /* RESET */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
     }
 
-    /* BODY */
     body {
+      width: 100vw;
       height: 100vh;
-      background: #8e0318;
+      background: #000;
+      color: #fff;
       display: flex;
-      justify-content: space-between; 
       align-items: center;
-      overflow: hidden; 
-    }
-
-    /* --- LATERAIS (ESQUERDA E DIREITA) --- */
-    aside {
-      width: 20%; 
-      height: 100%;
-      display: none; /* Esconde no celular */
-      flex-direction: column;
-      justify-content: center; 
-      align-items: center;
-      gap: 30px; 
-      padding: 20px;
-      z-index: 1; 
-      pointer-events: none; 
-    }
-
-    /* --- COLUNA CENTRAL --- */
-    .coluna-central {
-      display: flex;
-      flex-direction: column;
-      /* Mudei para center para organizar melhor a foto com o resto */
-      justify-content: center; 
-      align-items: center;
-      height: 100%;
-      flex-grow: 1;
-      z-index: 10;
-      gap: 20px; /* Espaço entre a foto, o texto e os gifs de baixo */
-      padding: 20px 0;
-    }
-
-    /* --- NOVO ESTILO DA FOTO DE VOCÊS --- */
-    .container-foto {
-      z-index: 20;
-      margin-bottom: 10px;
-    }
-
-    .foto-casal {
-      width: 300px;       /* Tamanho da foto */
-      max-width: 80vw;    /* Não estoura a tela do celular */
-      height: auto;
-      border-radius: 20px; /* Bordas redondinhas */
-      border: 5px solid white; /* Borda branca tipo porta-retrato */
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* Sombra para destacar */
-      object-fit: cover;
-    }
-
-    /* --- GIFS HORIZONTAIS (SÓ O DE BAIXO AGORA) --- */
-    .gifs-horizontais {
-      display: none; /* Esconde no celular */
-      flex-direction: row;
       justify-content: center;
-      gap: 40px;
-      padding: 20px;
-      width: 100%;
-      pointer-events: none; 
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      position: relative;
     }
 
-    /* ESTILO GERAL DOS GIFS */
-    img.gif-decorativo {
-      width: 150px; 
-      max-width: 100%;
-      object-fit: contain;
-      opacity: 0.9;
-      transition: transform 0.3s ease;
-    }
-    
-    img.gif-decorativo:hover {
-      transform: scale(1.1);
+    /* --- TELA DE INÍCIO (OVERLAY) --- */
+    #overlay-inicio {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        transition: opacity 1s ease;
     }
 
-    /* --- ÁREA DO JOGO (TEXTO E BOTÕES) --- */
-    .area-jogo {
+    .btn-iniciar {
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .btn-iniciar:hover {
+        background: white;
+        color: black;
+        transform: scale(1.1);
+    }
+
+    /* --- CONTEÚDO DO BILHETE --- */
+    .bilhete {
+      max-width: 800px;
+      padding: 30px;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      text-align: center;
+      opacity: 0; /* Começa invisível */
+      /* A animação será ativada via JS */
+    }
+
+    .animar-texto {
+        animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .contador-container {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 30px;
+      gap: 10px;
+      font-size: 0.9rem;
+      opacity: 0; /* Começa invisível */
+      transition: opacity 1s ease;
     }
 
-    /* TEXTO */
-    .message {
-      font-size: 1.8rem;
-      color: white;
-      text-align: center;
-      padding: 0 20px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-      font-weight: bold;
-    }
-
-    /* BOTÕES */
-    .buttons {
+    .circulo {
+      width: 80px;
+      height: 80px;
+      border: 3px solid #fff;
+      border-radius: 50%;
       display: flex;
-      gap: 20px;
-    }
-
-    button {
-      width: 140px;
-      height: 45px;
-      background: white;
-      border: 3px solid #5b0000;
-      cursor: pointer;
-      font-size: 1rem;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
       font-weight: bold;
-      z-index: 50; 
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      border-radius: 50px; /* Deixei o botão mais redondinho */
-    }
-
-    #sim {
-      transition: all 0.1s ease; 
-    }
-
-    /* --- RESPONSIVIDADE (TABLET E PC) --- */
-    @media (min-width: 768px) {
-      .coluna-central {
-        justify-content: space-between; /* No PC espalha mais */
-      }
-      
-      .message { font-size: 2.5rem; }
-      button { width: 200px; height: 55px; }
-
-      aside, .gifs-horizontais {
-        display: flex; 
-      }
-      
-      .foto-casal {
-        width: 350px; /* Foto maior no PC */
-        margin-top: 20px;
-      }
     }
   </style>
 </head>
-
 <body>
 
-  <aside>
-    <img class="gif-decorativo" src="cry-crying.gif" alt="Gif">
-    <img class="gif-decorativo" src="spongebob-crying.webp" alt="Gif">
-  </aside>
-
-  <div class="coluna-central">
-    
-    <div class="container-foto">
-        <img class="foto-casal" src="velinhos.png" alt="Nossa Foto">
-    </div>
-
-    <div class="area-jogo">
-      <div class="message">Tem certeza que quer desistir da gente?</div>
-      <div class="buttons">
-        <button id="sim">SIM</button>
-        <button id="nao">NÃO</button>
-      </div>
-    </div>
-
-    <div class="gifs-horizontais">
-      <img class="gif-decorativo" src="embepokhoc.gif" alt="Gif Baixo">
-      <img class="gif-decorativo" src="banana-cat-banana-cat-crying.gif" alt="Gif Baixo">
-      <img class="gif-decorativo" src="crying-cat-sad-cat (1).gif" alt="Gif Baixo">
-    </div>
-
+  <div id="overlay-inicio">
+      <button class="btn-iniciar" onclick="iniciarExperiencia()">Ler Bilhete</button>
   </div>
 
-  <aside>
-    <img class="gif-decorativo" src="cry-sad.webp" alt="Gif">
-    <img class="gif-decorativo" src="crying-harlas.webp" alt="Gif">
-  </aside>
+  <div class="bilhete" id="textoBilhete">
+    <p>
+      Larissa, refleti muito sobre ontem. Quero te pedir desculpas pela forma como falei;
+      eu perdi o controle e fui ofensivo, e reconheço que meu tom passou dos limites.
+      Mas o que me levou àquele estado foi o quanto eu tenho me sentido excluído e
+      "desquerido" por você.
+    </p>
+
+    <br>
+
+    <p>
+      Dói muito quando sinto que sou deixado de lado por outras pessoas ou trocado por
+      outras situações, e isso tem acabado com a minha autoestima, me deixado inseguro,
+      deprimido e até mesmo desmotivado.
+    </p>
+
+    <br>
+
+    <p>
+      Eu não quero ser aquela pessoa que explode, mas é difícil manter a calma me
+      sentindo desaprovado por quem eu gosto.
+    </p>
+
+    <br>
+
+    <p>
+      Não quero que a gente termine desse jeito, com esse peso.
+      Só queria que você entendesse o que eu estou passando e que,
+      por mais que eu tenha errado no tom, meu sofrimento é real
+      <strong>e eu te AMO MUITO</strong>.
+    </p>
+  </div>
+
+  <div class="contador-container" id="containerContador">
+    <div>Tempo para mudança de página</div>
+    <div class="circulo" id="contador">60</div>
+  </div>
+
+  <audio id="musicaFundo" loop>
+    <source src="inicio.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
-    const btnSim = document.getElementById("sim");
-    const btnNao = document.getElementById("nao");
+    function iniciarExperiencia() {
+        // 1. Toca a música (agora vai funcionar porque foi num clique)
+        const audio = document.getElementById('musicaFundo');
+        audio.volume = 0.5;
+        audio.play().then(() => {
+            console.log("Música iniciada com sucesso.");
+        }).catch(e => console.log("Erro no áudio:", e));
 
-    function fugir() {
-      // Pega tamanho da tela
-      const larguraJanela = window.innerWidth;
-      const alturaJanela = window.innerHeight;
-      
-      // Tamanho do botão
-      const larguraBtn = btnSim.offsetWidth;
-      const alturaBtn = btnSim.offsetHeight;
-      
-      // Posição do botão NÃO (para não ficar em cima dele)
-      const rectNao = btnNao.getBoundingClientRect();
+        // 2. Some com a tela de início
+        const overlay = document.getElementById('overlay-inicio');
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 1000);
 
-      let novaEsquerda, novaTopo;
-      let colidiu = true;
+        // 3. Mostra o texto e o contador
+        document.getElementById('textoBilhete').classList.add('animar-texto');
+        document.getElementById('containerContador').style.opacity = '0.9';
 
-      while (colidiu) {
-        // Gera posições aleatórias
-        novaEsquerda = Math.random() * (larguraJanela - larguraBtn);
-        novaTopo = Math.random() * (alturaJanela - alturaBtn);
-
-        const simEsquerda = novaEsquerda;
-        const simDireita = novaEsquerda + larguraBtn;
-        const simTopo = novaTopo;
-        const simBaixo = novaTopo + alturaBtn;
-
-        // Verifica colisão apenas com o botão NÃO
-        if (
-          simDireita < rectNao.left || 
-          simEsquerda > rectNao.right || 
-          simBaixo < rectNao.top || 
-          simTopo > rectNao.bottom 
-        ) {
-          colidiu = false; 
-        }
-      }
-
-      btnSim.style.position = "absolute";
-      btnSim.style.left = `${novaEsquerda}px`;
-      btnSim.style.top = `${novaTopo}px`;
+        // 4. Inicia o contador APENAS AGORA
+        iniciarContagem();
     }
 
-    btnSim.addEventListener("mouseover", fugir); 
-    btnSim.addEventListener("touchstart", (e) => { 
-       e.preventDefault(); 
-       fugir();
-    });
-    
-    btnNao.addEventListener("click", () => {
-       window.location.href ="pag2.html"
-    });
-  </script>
+    function iniciarContagem() {
+        let tempo = 60;
+        const contador = document.getElementById("contador");
 
+        const intervalo = setInterval(() => {
+            tempo--;
+            contador.textContent = tempo;
+
+            if (tempo <= 0) {
+                clearInterval(intervalo);
+                window.location.href = "pagg.html";
+            }
+        }, 1000);
+    }
+  </script>
 </body>
 </html>

@@ -15,9 +15,10 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    /* FUNDO DA PÁGINA */
+    /* FUNDO DA PÁGINA (ROSA CLARO) */
     body {
-      background-color: #8e0318;
+      background-color: #ffe6e6;
+      background-image: linear-gradient(to bottom, #ffe6e6, #ffcccc);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -58,29 +59,29 @@
       }
     }
 
+    /* TÍTULO PRINCIPAL (Rosa Escuro para destacar no fundo claro) */
     h1 {
-      color: white;
+      color: #d63384; 
       text-align: center;
       margin-bottom: 40px;
       font-size: 2.5rem;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       position: relative;
       z-index: 1;
       padding: 0 20px;
+      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
     }
 
     /* --- TÍTULO SECUNDÁRIO --- */
     h2 {
-      color: white;
+      color: #8e0318; /* Vermelho escuro */
       text-align: center;
       margin-top: 80px;
       margin-bottom: 40px;
       font-size: 2rem;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       position: relative;
       z-index: 1;
       width: 100%;
-      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid #ffb3b3; 
       padding-top: 50px;
       max-width: 1600px;
     }
@@ -230,29 +231,31 @@
     /* --- ÁREA DOS BOTÕES FINAIS --- */
     .botoes-finais {
       display: flex;
-      justify-content: space-between; /* Espalha: Esq - Centro - Dir */
+      justify-content: center; /* Centraliza os botões */
       align-items: center;
       width: 100%;
       max-width: 1600px;
-      padding: 50px 40px;
+      padding: 50px 20px;
       position: relative;
       z-index: 10;
+      flex-wrap: wrap; /* Permite quebrar linha se não couber */
+      gap: 20px; /* Espaço entre os botões */
     }
 
     .botao-geral {
       padding: 15px 30px;
       border-radius: 50px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: bold;
       text-decoration: none;
       color: white;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
       transition: transform 0.2s, background-color 0.2s;
       border: none;
       cursor: pointer;
       text-align: center;
       display: inline-block; 
-      min-width: 180px; /* Garante tamanho mínimo padrão */
+      min-width: 180px; 
     }
 
     .botao-vermelho {
@@ -271,12 +274,21 @@
       transform: scale(1.05);
     }
 
-    /* NOVO: BOTÃO AZUL PARA LISTA */
+    /* BOTÃO AZUL PARA LISTA */
     .botao-azul {
         background-color: #3498db;
     }
     .botao-azul:hover {
         background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    /* NOVO: BOTÃO LARANJA PARA ME CHATEIAM */
+    .botao-laranja {
+        background-color: #d35400; /* Laranja escuro / Tijolo */
+    }
+    .botao-laranja:hover {
+        background-color: #ba4a00;
         transform: scale(1.05);
     }
 
@@ -300,7 +312,7 @@
       display: block;
       object-fit: cover;
       object-position: center;
-      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
       border-radius: 0;
       box-shadow: none;
     }
@@ -447,8 +459,8 @@
       }
 
       .botoes-finais {
-        flex-direction: column-reverse; /* Empilha no celular */
-        gap: 20px;
+        flex-direction: column; /* Empilha no celular */
+        gap: 15px;
       }
 
       .botao-geral {
@@ -467,15 +479,15 @@
 
   <div class="decoracao-lateral lateral-esquerda">
     <img src="e-bíe-linh-cute.gif" alt="Gif">
-    <img src="dublin-i-love-dublin.gif" alt="Gif">
+    <img src="tubarao.gif" alt="Gif">
     <img src="happy-holidays.gif" alt="Gif">
     <img src="dog-puppy.gif" alt="Gif">
   </div>
 
   <div class="decoracao-lateral lateral-direita">
     <img src="sentient-dogs.gif" alt="Gif">
-    <img src="dublin-i-love-dublin.gif" alt="Gif">
-    <img src="sbefin-saban.gif" alt="Gif">
+    <img src="tubarao.gif" alt="Gif">
+    <img src="witch-watch.gif" alt="Gif">
     <img src="gorrila-dancing.gif" alt="Gif">
   </div>
 
@@ -688,7 +700,9 @@
     
     <a href="#" class="botao-geral botao-vermelho" onclick="abrirPopUp()">Desistir</a>
 
-    <a href="lista.html" class="botao-geral botao-azul">Lista</a>
+    <a href="lista.html" class="botao-geral botao-azul">Amo em você</a>
+
+    <a href="lista2.html" class="botao-geral botao-laranja">Me chateiam</a>
 
     <a href="carta.html" class="botao-geral botao-verde">Não desistir da gente</a>
   
@@ -704,7 +718,17 @@
       <p>Você quer mesmo desistir de tudo isso?</p>
       <div class="modal-botoes">
         <button class="btn-modal btn-recusar" onclick="fecharPopUp()">Recusar</button>
-        <button class="btn-modal btn-aceitar" onclick="irParaDesistirComTristeza()">Aceitar</button>
+        <button class="btn-modal btn-aceitar" onclick="abrirSegundoPopup()">Aceitar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="segundoPopup" class="modal-overlay">
+    <div class="modal-box">
+      <h3>Espere um pouco!</h3>
+      <p>Há algo muito importante pra você ver aqui.</p>
+      <div class="modal-botoes">
+        <button class="btn-modal btn-recusar" onclick="irParaCarta()">Não desistir</button>
       </div>
     </div>
   </div>
@@ -727,18 +751,20 @@
       document.getElementById('meuPopup').style.display = 'none';
     }
 
-    function irParaDesistirComTristeza() {
-      document.getElementById('meuPopup').style.display = 'none';
-      const overlay = document.getElementById('overlayTriste');
-      overlay.style.display = 'flex';
-      setTimeout(function() {
-          window.location.href = "desistir.html";
-      }, 3500); 
+    // Função Nova para abrir o segundo Popup
+    function abrirSegundoPopup() {
+        document.getElementById('meuPopup').style.display = 'none'; // Fecha o primeiro
+        document.getElementById('segundoPopup').style.display = 'flex'; // Abre o segundo
+    }
+
+    // Função Nova para redirecionar para a carta
+    function irParaCarta() {
+        window.location.href = "carta.html";
     }
 
     const audio = document.getElementById('musicaFundo');
     if(audio) {
-        audio.volume = 0.3; 
+        audio.volume = 0.4; 
         audio.play().catch(error => {
             document.body.addEventListener('click', () => {
                 audio.play();
@@ -746,7 +772,6 @@
         });
     }
   </script>
-
 
 </body>
 </html>

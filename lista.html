@@ -1,223 +1,222 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tudo que amo em você</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista</title>
 
-        body {
-            background-color: #ffe6e6;
-            background-image: linear-gradient(to bottom, #ffe6e6, #ffcccc);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Alinha no topo */
-            min-height: 100vh;
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-        /* --- LAYOUT GERAL --- */
-        .main-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 20px;
-            width: 100%;
-            max-width: 1400px;
-            margin-top: 20px;
-        }
+    body {
+      /* Fundo Rosa Claro */
+      background-color: #ffe6e6;
+      background-image: linear-gradient(to bottom, #ffe6e6, #ffcccc);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative; /* Necessário para os elementos fixos */
+    }
 
-        /* --- BARRAS LATERAIS DE GIFS --- */
-        .gif-sidebar {
-            flex: 0 0 180px; /* Largura fixa para os GIFs */
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            position: sticky;
-            top: 20px; /* Faz os gifs acompanharem a rolagem até certo ponto */
-        }
+    /* --- NOVO BOTÃO VOLTAR (ROSA ESCURO - FORA DO CARD) --- */
+    .btn-voltar-rosa {
+      position: fixed; /* Fica preso na tela */
+      top: 25px;
+      left: 25px;
+      padding: 12px 25px;
+      /* Rosa mais escuro (usando a cor do título para combinar) */
+      background-color: #d63384;
+      color: #fff; /* Texto branco para contraste */
+      text-decoration: none;
+      font-weight: bold;
+      border: 2px solid #b02a6c; /* Borda ligeiramente mais escura */
+      border-radius: 50px;
+      z-index: 100; /* Garante que fique acima de tudo */
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px; /* Espaço para a setinha */
+      box-shadow: 0 4px 15px rgba(214, 51, 132, 0.4); /* Sombra rosada */
+    }
 
-        .gif-sidebar img {
-            width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 2px solid #ffb3b3;
-            background-color: rgba(255,255,255,0.6);
-        }
+    .btn-voltar-rosa:hover {
+      background-color: #b02a6c; /* Escurece ao passar o mouse */
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(214, 51, 132, 0.6);
+    }
 
-        /* --- CARTÃO CENTRAL (A LISTA) --- */
-        .lista-container {
-            background-color: #fff;
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 800px;
-            width: 100%;
-            border: 3px solid #ff4d4d;
-            position: relative;
-        }
+    .container {
+      background: #fff;
+      /* Largura ajustada */
+      width: 50%; 
+      max-width: 600px; 
+      min-width: 320px;
+      /* Altura ocupando quase toda a tela */
+      min-height: 90vh;
+      padding: 50px 40px;
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 2px solid #ffb3b3;
+      z-index: 10;
+      margin-top: 40px; /* Espaço extra no topo para não colar no botão em telas pequenas */
+    }
 
-        /* Título */
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            color: #d63384;
-            font-size: 3.5rem;
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
-        }
+    .conteudo-lista {
+      flex-grow: 1;
+    }
 
-        /* --- ESTILO DA LISTA NUMERADA --- */
-        ol {
-            counter-reset: li; /* Inicia o contador */
-            list-style: none; /* Remove números padrão feios */
-            padding: 0;
-        }
+    h1 {
+      text-align: center;
+      color: #d63384; 
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        ol li {
-            position: relative;
-            margin-bottom: 18px;
-            padding: 15px 10px 15px 50px; /* Espaço para o número */
-            background: #fff0f5; /* Fundo rosinha claro */
-            border-radius: 10px;
-            color: #555;
-            font-size: 1.1rem;
-            line-height: 1.5;
-            transition: transform 0.2s;
-            border-left: 5px solid #d63384; /* Detalhe lateral */
-        }
+    /* ESTILO DA LISTA NUMERADA */
+    ol {
+      font-size: 1.3rem;
+      color: #333;
+      padding-left: 40px; /* Espaço para os números */
+      line-height: 1.5;
+    }
 
-        ol li:hover {
-            transform: translateX(5px); /* Efeito ao passar o mouse */
-            background: #ffe6e6;
-        }
+    ol li {
+      margin-bottom: 8px; /* Pequeno espaço entre os itens, sem linhas */
+      list-style-type: decimal; /* Garante que sejam números (1., 2., 3.) */
+    }
 
-        /* O Número Bonito */
-        ol li::before {
-            counter-increment: li;
-            content: counter(li);
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #d63384;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            font-weight: bold;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-        }
+    /* ÁREA DOS BOTÕES */
+    .botoes-finais {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: row; 
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: nowrap; 
+    }
 
-        /* Destaque para palavras chave (opcional) */
-        .highlight {
-            color: #d63384;
-            font-weight: 600;
-        }
+    .botao-geral {
+      padding: 15px 0; 
+      width: 160px; 
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        /* --- BOTÃO VOLTAR --- */
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 40px;
-        }
+    .botao-geral:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
 
-        .btn-voltar {
-            background-color: #ff4d4d;
-            color: white;
-            padding: 12px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
-            transition: all 0.3s ease;
-        }
+    /* BOTÃO LISTA (ROSA - PALETA DA PÁGINA) */
+    .botao-lista {
+      background-color: #ffb3b3; 
+      color: #8e0318;
+      border: 2px solid #ff8080;
+    }
+    .botao-lista:hover {
+      background-color: #ff9999;
+    }
 
-        .btn-voltar:hover {
-            background-color: #d63384;
-            transform: scale(1.05);
-        }
+    /* BOTÃO ME CHATEIAM (VERMELHO) */
+    .botao-chateiam { 
+      background-color: #c0392b; 
+      color: white;
+      border: 2px solid #922b21;
+    }
+    .botao-chateiam:hover {
+      background-color: #a93226;
+    }
 
-        /* RESPONSIVIDADE */
-        @media (max-width: 1024px) {
-            .gif-sidebar {
-                display: none; /* Esconde GIFs no celular/tablet para focar na lista */
-            }
-            .lista-container {
-                padding: 30px 20px;
-            }
-            h1 {
-                font-size: 2.5rem;
-            }
-            ol li {
-                font-size: 1rem;
-            }
-        }
-    </style>
+    @media (max-width: 600px) {
+      .container {
+        width: 90%;
+        min-height: 85vh;
+      }
+      h1 { font-size: 2rem; }
+      
+      .botoes-finais {
+        flex-direction: column; 
+        width: 100%;
+      }
+      .botao-geral {
+        width: 100%;
+      }
+
+      /* Ajuste do botão voltar no celular */
+      .btn-voltar-rosa {
+        top: 15px;
+        left: 15px;
+        padding: 8px 20px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
+  <a href="pag2.html" class="btn-voltar-rosa">
+    &#8592; Voltar
+  </a>
 
-        <div class="gif-sidebar left">
-            <img src="lovemiau-cats-love.webp" alt="Gif">
-            <img src="cat-love.webp" alt="Gif">
-            <img src="white-cat.gif" alt="Gif">
-            <img src="milk-and-mocha.gif" alt="Gif">
-        </div>
+  <div class="container">
+    
+    <div class="conteudo-lista">
+      <h1>Coisas que gosto em você</h1>
 
-        <div class="lista-container">
-            <h1>Coisas que eu amo em você...</h1>
-
-            <ol>
-                <li>Nossa <strong>família</strong> e a vida que construímos juntos.</li>
-                <li>O seu <strong>cabelo lindo</strong> que eu tanto admiro.</li>
-                <li>A forma como você implica comigo e a nossa dinâmica única.</li>
-                <li>Aquele seu ritual de chegar da academia e perguntar se a bunda cresceu.</li>
-                <li>O seu jeito carinhoso e como você me acolhe quando estou mal (meu porto seguro).</li>
-                <li>O tempo precioso que passamos com o <strong>Breno</strong>, vendo nosso filho crescer.</li>
-                <li>Nossos lanches frequentes (que são a melhor parte do dia).</li>
-                <li>A comidinha deliciosa que só você sabe fazer.</li>
-                <li>A nossa intimidade total, incluindo as suas "porquices" que mostram como somos livres um com o outro.</li>
-                <li>Nossos banhos juntos sem segundas intenções: conversando, eu esfregando suas costas e espremendo suas espinhas.</li>
-                <li>Te fazer cosquinhas só para te ver rir (mesmo sabendo que você odeia).</li>
-                <li>Ficar deitado assistindo a filmes e séries com você, mesmo quando são péssimos.</li>
-                <li>Cada detalhe do seu rosto, especialmente seus <strong>olhos</strong> e sua <strong>boca</strong>.</li>
-                <li>A nossa conexão incrível e a química perfeita no sexo.</li>
-                <li>O fato de amar você mais do que a mim mesmo.</li>
-                <li>Saber que você, o Breno e o nosso lar são a <strong>prioridade absoluta</strong> da minha vida.</li>
-                <li>Amo quando você finge que não está com ciúmes.</li>
-                <li><strong>Amo absolutamente TUDO em você.</strong></li>
-            </ol>
-
-            <div class="btn-container">
-                <a href="pag2.html" class="btn-voltar">Voltar</a>
-            </div>
-        </div>
-
-        <div class="gif-sidebar right">
-            <img src="peach-and-goma-hug.gif" alt="Gif">
-            <img src="cute-cats.webp" alt="Gif">
-            <img src="love-you-love.gif" alt="Gif">
-            <img src="peach-goma.webp" alt="Gif">
-        </div>
-
+      <ol>
+        <li>Seu cabelo lindo</li>
+        <li>A forma como você implica comigo (e nossa dinâmica)</li>
+        <li>Sua rotina de chegar da academia e perguntar se a bunda cresceu</li>
+        <li>Seu jeito carinhoso e como você me acolhe</li>
+        <li>A vida que construímos juntos</li>
+        <li>O tempo que passamos com o nosso filho</li>
+        <li>Nossos lanches (que são muitos kkkk)</li>
+        <li>A comidinha que você faz</li>
+        <li>Suas "porquices" e nossa intimidade</li>
+        <li>Nossos banhos juntos jogando conversa fora, lavando suas costas e espremendo suas espinhas</li>
+        <li>Te fazer cosquinhas só para ouvir sua risada mesmo que vc fique brava</li>
+        <li>Ficar deitado vendo séries e filmes com você o dia todo</li>
+        <li>Seus olhos e sua boca e ate seu queixo que você tanto reclama</li>
+        <li>Nossa conexão incrível no sexo</li>
+        <li>O fato de você ser o amor da minha vida</li>
+        <li>O fato de eu querer viver o resto da minha vida com você</li>
+          <li>o jeito que você fica bebada e muito safada kkkk</li>
+        <li>entre muitas outras coisas que eu poderia ficar citando por um bom tempo</li>
+        </ol>
     </div>
 
-</body>
-</html>
+    <div class="botoes-finais">
+
+      <a href="lista.html" class="botao-geral botao-lista">Lista</a>
+
+      <a href="lista2.html" class="botao-geral botao-chateiam">Me chateiam</a>
+
+    </div>
+  </div>
+
 </script>
     <audio id="musicaFundo" loop>
-    <source src="Oração - A Banda Mais Bonita da Cidade - Neide Gama (youtube).mp3" type="audio/mpeg">
+    <source src="Marisa Monte - Amor I Love You - Jonathan Gomes Pereira (youtube).mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -225,7 +224,7 @@
     const audio = document.getElementById('musicaFundo');
     
     // Define o volume (0.0 a 1.0). 0.3 é um volume ambiente agradável.
-    audio.volume = 0.2  ;
+    audio.volume = 0.5  ;
 
     // Tenta tocar assim que a página abre
     const promessa = audio.play();
@@ -244,3 +243,6 @@
       });
     }
   </script>
+
+</body>
+</html>

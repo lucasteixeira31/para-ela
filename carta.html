@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,61 +16,131 @@
             padding: 30px;
             display: flex;
             justify-content: center;
-            align-items: center; 
+            align-items: center;
             min-height: 100vh;
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
-            position: relative; 
+            position: relative;
+        }
+
+        /* --- ESTILO NOVO DO BOTÃO VOLTAR (TOPO ESQUERDO) --- */
+        .btn-voltar-topo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #ff4d4d;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-voltar-topo:hover {
+            background-color: #d63384;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(214, 51, 132, 0.5);
+        }
+
+        /* --- ESTILOS DOS NOVOS BOTÕES FINAIS --- */
+        .botoes-decisao {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn-decisao {
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .btn-quero {
+            background-color: #27ae60;
+            color: white;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-quero:hover {
+            background-color: #219150;
+            transform: scale(1.05);
+        }
+
+        .btn-desistir {
+            background-color: #555;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-desistir:hover {
+            background-color: #333;
+            transform: scale(1.05);
         }
 
         /* --- ESTILO PARA OS GIFS LATERAIS --- */
         .gif-sidebar {
-            flex: 0 0 180px; 
-            /* AJUSTADO: 100px é suficiente agora que temos só uma coluna de fotos */
-            margin: 0 100px; 
-            align-self: center; 
+            flex: 0 0 180px;
+            margin: 0 100px;
+            align-self: center;
             z-index: 15;
             display: flex;
             flex-direction: column;
-            gap: 15px; 
+            gap: 15px;
         }
 
         .gif-sidebar img {
             width: 100%;
             height: auto;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             display: block;
-            border: 2px solid #ffb3b3; 
-            background-color: rgba(255,255,255,0.5); 
+            border: 2px solid #ffb3b3;
+            background-color: rgba(255, 255, 255, 0.5);
         }
 
         .main-wrapper {
             display: flex;
-            align-items: flex-start; 
+            align-items: flex-start;
             justify-content: center;
-            gap: 40px; /* Um pouco mais de espaço entre a coluna de fotos e a carta */
+            gap: 40px;
             width: 100%;
             max-width: 1400px;
             position: relative;
             z-index: 10;
-            margin-top: 20px; 
+            margin-top: 20px;
         }
 
-        /* --- CONFIGURAÇÃO DAS COLUNAS LATERAIS (ÚNICA COLUNA POR LADO) --- */
+        /* --- CONFIGURAÇÃO DAS COLUNAS LATERAIS --- */
         .side-column {
-            flex: 0 0 250px; 
+            flex: 0 0 250px;
             display: flex;
-            flex-direction: column; /* GARANTE QUE FIQUEM UM EM CIMA DO OUTRO */
-            gap: 30px; /* Espaço entre a foto, o texto e as outras fotos */
+            flex-direction: column;
+            gap: 30px;
         }
 
         .side-column.left-col {
-            align-items: flex-end; /* Cola tudo na margem da carta (direita da coluna) */
+            align-items: flex-end;
         }
 
         .side-column.right-col {
-            align-items: flex-start; /* Cola tudo na margem da carta (esquerda da coluna) */
+            align-items: flex-start;
         }
 
         .side-column .sidebar {
@@ -79,17 +150,16 @@
         /* --- ESTILO DO TEXTO VERTICAL --- */
         .vertical-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.5rem; 
-            color: #d63384; 
+            font-size: 2.5rem;
+            color: #d63384;
             font-weight: 700;
             line-height: 1;
             writing-mode: vertical-rl;
             text-orientation: upright;
             letter-spacing: 0.1em;
             text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.5);
-            text-transform: uppercase; 
-            /* Garante que o texto não "estique" a largura da coluna */
-            align-self: center; 
+            text-transform: uppercase;
+            align-self: center;
         }
 
         /* Ajustes finos para colar o texto na carta */
@@ -108,10 +178,10 @@
             background-color: rgba(255, 255, 255, 0.9);
             padding: 15px;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
             border: 2px solid #ffb3b3;
-            height: fit-content; 
+            height: fit-content;
         }
 
         .sidebar img {
@@ -133,37 +203,13 @@
             background-color: rgba(255, 255, 255, 0.95);
             padding: 60px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            flex: 1 1 auto; 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            flex: 1 1 auto;
             max-width: 900px;
             text-align: center;
             position: relative;
             border: 2px solid #ff4d4d;
-            margin-bottom: 90px; 
-        }
-
-        .btn-voltar {
-            position: absolute;
-            bottom: -80px; 
-            left: 50%;
-            transform: translateX(-50%); 
-            background-color: #ff4d4d;
-            color: white;
-            padding: 12px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            z-index: 20;
-        }
-
-        .btn-voltar:hover {
-            background-color: #d63384;
-            transform: translateX(-50%) scale(1.1);
-            box-shadow: 0 8px 20px rgba(214, 51, 132, 0.5);
+            margin-bottom: 90px;
         }
 
         h1 {
@@ -171,7 +217,7 @@
             color: #d63384;
             font-size: 4rem;
             margin-bottom: 20px;
-            margin-top: 0; 
+            margin-top: 0;
         }
 
         .gif-container {
@@ -226,43 +272,231 @@
             }
         }
 
+        /* --- ESTILOS DOS OVERLAYS (TELA PRETA) --- */
+        .overlay-final {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 20000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            color: white;
+            animation: fadeInOverlay 1s ease;
+        }
+
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .msg-final-container {
+            max-width: 800px;
+            z-index: 20002;
+            background: transparent;
+        }
+
+        .msg-final-container h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #d63384;
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+
+        .msg-final-container p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #fff;
+            text-indent: 0;
+        }
+
+        .timer-display {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #27ae60;
+            margin-top: 40px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Estilo do aviso do WhatsApp */
+        .aviso-wpp {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #ccc;
+            font-family: 'Poppins', sans-serif;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Corações FELIZES subindo no overlay */
+        .heart-rise {
+            position: fixed;
+            bottom: -50px;
+            color: #ff4d4d;
+            font-size: 24px;
+            animation: rise linear forwards;
+            z-index: 20001;
+        }
+
+        /* Corações PARTIDOS subindo no overlay */
+        .heart-broken-rise {
+            position: fixed;
+            bottom: -50px;
+            color: #ff4d4d;
+            font-size: 24px;
+            animation: rise linear forwards;
+            z-index: 20001;
+        }
+
+        @keyframes rise {
+            to {
+                transform: translateY(-110vh);
+            }
+        }
+
         /* Responsividade */
-        @media (max-width: 1450px) { 
-             .gif-sidebar { display: none; } 
+        @media (max-width: 1450px) {
+            .gif-sidebar {
+                display: none;
+            }
         }
 
         @media (max-width: 1024px) {
-            body { align-items: flex-start; }
-            .main-wrapper { flex-direction: column; align-items: center; }
-            
-            .side-column { 
-                width: 100%; 
-                max-width: 400px; 
-                align-items: center !important; 
-                flex: 1 1 auto; 
-                margin-bottom: 20px; 
+            body {
+                align-items: flex-start;
             }
 
-            .side-column.left-col { order: 2; }
-            .side-column.right-col { order: 3; }
-            .container { order: 1; padding: 30px; max-width: 100%; }
+            .main-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .side-column {
+                width: 100%;
+                max-width: 400px;
+                align-items: center !important;
+                flex: 1 1 auto;
+                margin-bottom: 20px;
+            }
+
+            .side-column.left-col {
+                order: 2;
+            }
+
+            .side-column.right-col {
+                order: 3;
+            }
+
+            .container {
+                order: 1;
+                padding: 30px;
+                max-width: 100%;
+            }
 
             .vertical-text {
                 writing-mode: horizontal-tb;
                 text-orientation: mixed;
-                font-size: 2rem; 
+                font-size: 2rem;
                 margin: 20px 0 !important;
                 text-align: center;
-                align-self: center !important; /* Centraliza no mobile */
+                align-self: center !important;
             }
 
-            h1 { font-size: 2.8rem; }
-            .letter-content { font-size: 1rem; }
-            .letter-content p { text-indent: 0; }
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            .letter-content {
+                font-size: 1rem;
+            }
+
+            .letter-content p {
+                text-indent: 0;
+            }
+
+            .btn-voltar-topo {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            /* Ajuste para os botões novos no celular */
+            .botoes-decisao {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-decisao {
+                width: 100%;
+            }
         }
     </style>
 </head>
+
 <body>
+
+    <div id="overlayFinal" class="overlay-final">
+        <div class="msg-final-container">
+            <h2>Larissa meu amor</h2>
+            <p>
+                Hoje eu quero te fazer uma promessa, vinda do fundo do meu coração. Eu prometo ser o seu homem, o seu
+                porto seguro e cuidar de você com todo o carinho que você merece.
+            </p>
+            <p>
+                Eu prometo me esforçar e me desdobrar todos os dias para garantir a sua felicidade. Não importa o que
+                aconteça, eu vou buscar formas de te fazer sorrir, e se as formas que já existem não forem suficientes,
+                eu invento coisas novas. Eu criarei novos jeitos de te amar, novas surpresas e novos motivos para a
+                gente ser feliz. Vou fazer de tudo pra te reconquistar todos os dias.
+            </p>
+            <p>
+                Eu quero que você seja minha mulher, hoje e sempre. Obrigado por existir, por estar na minha vida e por
+                me dar a chance de te mostrar que sou capaz de fazer tudo por nós.
+            </p>
+
+            <div id="countdown" class="timer-display">45</div>
+            <p class="aviso-wpp">Você será redirecionada para o WhatsApp com uma mensagem especial sugerida. Basta confirmar o envio.</p>
+        </div>
+    </div>
+
+    <div id="overlaySad" class="overlay-final">
+        <div class="msg-final-container">
+            <h2>Larissa,</h2>
+            <p>
+                Hoje, em vez de uma promessa de recomeço, venho te trazer uma despedida vinda do fundo do meu coração.
+                Eu queria muito ter sido o homem da sua vida e o seu porto seguro para sempre, mas percebo que meu tempo
+                ao seu lado chegou ao fim.
+            </p>
+            <p>
+                Eu me esforcei e me desdobrei para garantir a sua felicidade. Tentei buscar formas de te fazer sorrir e
+                até inventar novos jeitos de te amar. Mas entendi que, às vezes, amar também significa deixar ir quando
+                as nossas formas de ser feliz já não se encaixam mais.
+            </p>
+            <p>
+                Eu queria que você fosse minha mulher hoje e sempre, mas aceito que nossos caminhos se separam aqui.
+                Obrigado por ter existido na minha vida e por tudo o que vivemos. Desejo que você encontre a felicidade
+                que eu tanto tentei te dar.
+            </p>
+
+            <div id="countdownSad" class="timer-display">45</div>
+            <p class="aviso-wpp">Você será redirecionada para o WhatsApp com uma mensagem de despedida sugerida. Basta confirmar o envio.</p>
+        </div>
+    </div>
+
+    <a href="pag2.html" class="btn-voltar-topo">
+        &#8592; Voltar
+    </a>
 
     <div class="gif-sidebar left-gif">
         <img src="lovemiau-cats-love.webp" alt="GIF Lateral Esquerda">
@@ -282,6 +516,11 @@
         <img src="cat-love.webp" alt="GIF Lateral Esquerda">
         <img src="bear-hug.gif" alt="GIF Lateral Esquerda">
         <img src="kiss-love.gif" alt="GIF Lateral Esquerda">
+
+        <img src="bjs.gif" alt="GIF Lateral direita">
+        <img src="poo.gif" alt="GIF Lateral direita">
+        <img src="pinguem.gif" alt="GIF Lateral direita">
+        <img src="tubarao.gif" alt="GIF Lateral direita">
     </div>
 
 
@@ -290,61 +529,91 @@
         <div class="side-column left-col">
             <div class="sidebar">
                 <img src="c1.png" alt="Nossa Foto 1">
-                <p class="caption">Me diga com todas as palavras... -- >  </p>
+                <p class="caption">Me diga com todas as palavras... -- > </p>
             </div>
-            
-            
 
             <div class="sidebar">
                 <img src="c11.png" alt="Foto Extra 1">
-                
             </div>
             <div class="sidebar">
                 <img src="c33.png" alt="Foto Extra 2">
-                
             </div>
-             <div class="sidebar">
+            <div class="sidebar">
                 <img src="c44.png" alt="Foto Extra 3">
-                
             </div>
             <div class="sidebar">
                 <img src="unnamed.jpg" alt="Foto Extra 3">
-                
             </div>
+            <div class="sidebar">
+                <img src="la.png" alt="Foto Extra 1">
+            </div>
+            <div class="sidebar">
+                <img src="lalu.png" alt="Foto Extra 1">
+            </div>
+            <div class="sidebar">
+                <img src="lala.jpg" alt="Foto Extra 1">
+            </div>
+
+            <img src="eu.png" style="width: 100%; height: auto; margin-top: 10px;">
+
         </div>
 
 
         <div class="container">
             <h1>Larissa...</h1>
-            
+
             <div class="gif-container">
                 <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Amor">
             </div>
 
             <div class="letter-content">
-                <p>Escrevo esta carta não para falar de despedidas, mas para falar de recomeços e, principalmente, de felicidade. A felicidade que eu só encontro ao seu lado e que eu quero construir, dia após dia, com você.</p>
+                <p>Escrevo esta carta não para falar de despedidas, mas para falar de recomeços e, principalmente, de
+                    felicidade. A felicidade que eu só encontro ao seu lado e que eu quero construir, dia após dia, com
+                    você.</p>
 
-                <p>Eu olho para você e vejo tudo o que eu amo. Amo seu cabelo lindo, amo a forma como você implica comigo (e, no fundo, eu adoro essa nossa dinâmica). Amo aquela sua rotina de chegar da academia e perguntar se a bunda cresceu, esperando meu elogio — que sempre será sincero, porque você é perfeita para mim.</p>
-                
-                <p>Amo seu jeito carinhoso, a forma como você me acolhe e cuida de mim quando estou mal; <span class="highlight">você é meu porto seguro.</span></p>
+                <p>Eu olho para você e vejo tudo o que eu amo. Amo seu cabelo lindo, amo a forma como você implica
+                    comigo (e, no fundo, eu adoro essa nossa dinâmica). Amo aquela sua rotina de chegar da academia e
+                    perguntar se a bunda cresceu, esperando meu elogio — que sempre será sincero, porque você é perfeita
+                    para mim.</p>
 
-                <p>Amo a vida que construímos. O tempo que passamos com o nosso filho, vendo ele crescer. Amo nossos lanches — que são frequentes, eu sei, mas são a melhor parte do dia —, amo a comidinha que você faz e até as suas "porquices", que só mostram a intimidade que temos.</p> 
-                
-                <p>Amo nossos banhos juntos sem segundas intenções, onde ficamos jogando conversa fora, eu esfrego suas costas e espremo suas espinhas. Amo te fazer cosquinhas, mesmo sabendo que você odeia, só para te ouvir rir. Amo ficar deitado vendo séries e filmes com você, mesmo aqueles péssimos, porque qualquer coisa ao seu lado fica boa.</p>
+                <p>Amo seu jeito carinhoso, a forma como você me acolhe e cuida de mim quando estou mal; <span
+                        class="highlight">você é meu porto seguro.</span></p>
 
-                <p>Eu amo cada detalhe em você. Seus olhos, sua boca, a nossa conexão incrível no sexo e o quanto eu te amo, mais do que a mim mesmo.</p>
+                <p>Amo a vida que construímos. O tempo que passamos com o nosso filho, vendo ele crescer. Amo nossos
+                    lanches — que são frequentes, eu sei, mas são a melhor parte do dia —, amo a comidinha que você faz
+                    e até as suas "porquices", que só mostram a intimidade que temos.</p>
 
-                <p>Reconheço que tenho falhas. Me sinto mal por esquecer as coisas que você me pede com tanta facilidade, e sei que preciso melhorar. Quero te pedir perdão por tudo o que aconteceu antes e, principalmente, por ter me tornado, em alguns momentos, um cara que você não tem admirado. <strong>Mas eu estou aqui para dizer que isso vai mudar.</strong></p>
+                <p>Amo nossos banhos juntos sem segundas intenções, onde ficamos jogando conversa fora, eu esfrego suas
+                    costas e espremo suas espinhas. Amo te fazer cosquinhas, mesmo sabendo que você odeia, só para te
+                    ouvir rir. Amo ficar deitado vendo séries e filmes com você, mesmo aqueles péssimos, porque qualquer
+                    coisa ao seu lado fica boa.</p>
 
-                <p>Estou disposto a fazer de você a mulher mais feliz do mundo. Sei que todo relacionamento tem problemas, mas estou pronto para encarar cada um deles e te defender de cada insegurança que surgir. Minha meta não é só a sua felicidade, mas a do <strong>Breno</strong> e a do nosso relacionamento.</p>
+                <p>Eu amo cada detalhe em você. Seus olhos, sua boca, a nossa conexão incrível no sexo e o quanto eu te
+                    amo, mais do que a mim mesmo.</p>
 
-                <p>Estou disposto a tudo: a fazer terapia de casal, a conhecer lugares diferentes, a fazer planos novos, a ter "dates" ruins e magníficos, desde que seja com você. Quero que você sinta, em cada atitude minha, que sou o homem que faria qualquer coisa para ver você e nossa família felizes.</p>
+                <p>Reconheço que tenho falhas. Me sinto mal por esquecer as coisas que você me pede com tanta
+                    facilidade, e sei que preciso melhorar. Quero te pedir perdão por tudo o que aconteceu antes e,
+                    principalmente, por ter me tornado, em alguns momentos, um cara que você não tem admirado.
+                    <strong>Mas eu estou aqui para dizer que isso vai mudar.</strong></p>
 
-                <p>Vou lutar com todas as minhas forças para que você me ame e me valorize da mesma forma intensa que eu te amo e te valorizo. Prometo te ajudar em tudo o que você precisar, parando o que eu estiver fazendo para te dar atenção.</p>
+                <p>Estou disposto a fazer de você a mulher mais feliz do mundo. Sei que todo relacionamento tem
+                    problemas, mas estou pronto para encarar cada um deles e te defender de cada insegurança que surgir.
+                    Minha meta não é só a sua felicidade, mas a do <strong>Breno</strong> e a do nosso relacionamento.
+                </p>
 
-                <p class="highlight">Quero deixar gravado: você, o Breno e a nossa família são e sempre serão a prioridade absoluta da minha vida. Eu não quero mais ninguém além de vocês.</p>
+                <p>Estou disposto a tudo: a fazer terapia de casal, a conhecer lugares diferentes, a fazer planos novos,
+                    a ter "dates" ruins e magníficos, desde que seja com você. Quero que você sinta, em cada atitude
+                    minha, que sou o homem que faria qualquer coisa para ver você e nossa família felizes.</p>
 
-                <p>Não quero nada que não seja dar uma vida boa, próspera e em paz para nós. Eu escolho você, hoje e sempre.</p>
+                <p>Vou lutar com todas as minhas forças para que você me ame e me valorize da mesma forma intensa que eu
+                    te amo e te valorizo. Prometo te ajudar em tudo o que você precisar, parando o que eu estiver
+                    fazendo para te dar atenção.</p>
+
+                <p class="highlight">Quero deixar gravado: você, o Breno e a nossa família são e sempre serão a
+                    prioridade absoluta da minha vida. Eu não quero mais ninguém além de vocês.</p>
+
+                <p>Não quero nada que não seja dar uma vida boa, próspera e em paz para nós. Eu escolho você, hoje e
+                    sempre.</p>
             </div>
 
             <div class="signature">
@@ -352,29 +621,42 @@
                 Lucas
             </div>
 
-            <a href="pag2.html" class="btn-voltar">Voltar</a>
+            <div class="botoes-decisao">
+                <a href="#" class="btn-decisao btn-quero" id="btnQuero">te quero amor</a>
+                <a href="#" class="btn-decisao btn-desistir" id="btnDesistir">desistir de tudo isso?</a>
+            </div>
         </div>
 
         <div class="side-column right-col">
-             <div class="sidebar">
+            <div class="sidebar">
                 <img src="c2.png" alt="Nossa Foto 2">
                 <p class="caption">Isso aqui não é o sonho da sua vida?</p>
             </div>
-            
-            
 
             <div class="sidebar">
                 <img src="c66.webp" alt="Foto Extra 4">
-                
             </div>
             <div class="sidebar">
                 <img src="c66.png" alt="Foto Extra 5">
-                
             </div>
-             <div class="sidebar">
+            <div class="sidebar">
                 <img src="c88.png" alt="Foto Extra 6">
-                
             </div>
+
+            <div class="sidebar">
+                <img src="lalal.png" alt="Foto Extra 6">
+            </div>
+
+            <div class="sidebar">
+                <img src="WhatsApp Image 2026-01-08 at 12.12.47.jpeg" alt="Foto Extra 6">
+            </div>
+
+            <div class="sidebar">
+                <img src="isso.jpg" alt="Foto Extra 6">
+            </div>
+
+            <img src="eu 2.png" style="width: 100%; height: auto; margin-top: 10px;">
+
         </div>
 
     </div>
@@ -387,7 +669,7 @@
         <img src="proxima.gif" alt="GIF Lateral direita">
         <img src="love-you-love.gif" alt="GIF Lateral direita">
         <img src="pawsum-playpawsum.webp" alt="GIF Lateral direita">
-        <img src="peach-and-goma-hug.gif" alt="GIF Lateral direita">     
+        <img src="peach-and-goma-hug.gif" alt="GIF Lateral direita">
         <img src="peach-goma.webp" alt="GIF Lateral Esquerda">
         <img src="peach-goma-love-pat-head-cheek.webp" alt="GIF Lateral direita">
         <img src="white-cat.gif" alt="GIF Lateral direita">
@@ -395,9 +677,15 @@
         <img src="proxima 1.gif" alt="GIF Lateral direita">
         <img src="proxima 3.gif" alt="GIF Lateral direita">
         <img src="proxima 4.gif" alt="GIF Lateral direita">
-        <img src="proxima 6.gif" alt="GIF Lateral direita">   
-        <img src="por.gif" alt="GIF Lateral direita">   
-     </div>
+        <img src="proxima 6.gif" alt="GIF Lateral direita">
+        <img src="por.gif" alt="GIF Lateral direita">
+
+        <img src="love (1).gif" alt="GIF Lateral direita">
+        <img src="love.gif" alt="GIF Lateral direita">
+        <img src="por.gif" alt="GIF Lateral direita">
+        <img src="ssss.gif" alt="GIF Lateral direita">
+
+    </div>
 
     <script>
         /* --- EFEITO DE CORAÇÕES --- */
@@ -406,10 +694,10 @@
             heart.classList.add('heart');
             heart.innerHTML = '❤';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's'; 
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
             heart.style.opacity = Math.random();
             heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            
+
             document.body.appendChild(heart);
 
             setTimeout(() => {
@@ -417,7 +705,7 @@
             }, 5000);
         }
 
-        setInterval(createHeart, 300); 
+        setInterval(createHeart, 300);
 
         /* --- FOGOS DE ARTIFÍCIO NA FRENTE --- */
         var duration = 5 * 1000;
@@ -428,7 +716,7 @@
             return Math.random() * (max - min) + min;
         }
 
-        var interval = setInterval(function() {
+        var interval = setInterval(function () {
             var timeLeft = animationEnd - Date.now();
 
             if (timeLeft <= 0) {
@@ -436,38 +724,166 @@
             }
 
             var particleCount = 50 * (timeLeft / duration);
-            
+
             confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
             confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
         }, 250);
     </script>
+
     <audio id="musicaFundo" loop>
-    <source src="Velha Infância (2004 Digital Remaster) - Tribalistas (youtube).mp3" type="audio/mpeg">
-  </audio>
+        <source src="Velha Infância (2004 Digital Remaster) - Tribalistas (youtube).mp3" type="audio/mpeg">
+    </audio>
 
-  <script>
-    // SCRIPT PARA A MÚSICA TOCAR
-    const audio = document.getElementById('musicaFundo');
-    
-    // Define o volume (0.0 a 1.0). 0.3 é um volume ambiente agradável.
-    audio.volume = 0.2  ;
+    <audio id="musicaFinal" loop>
+        <source src="Djavan   Um Amor Puro   LETRA I LYRIC - LETRAS LYRICS (youtube) (mp3cut.net).mp3" type="audio/mpeg">
+    </audio>
 
-    // Tenta tocar assim que a página abre
-    const promessa = audio.play();
+    <audio id="musicaSad" loop>
+        <source src="Fundo Musical Suave e Triste no Piano  (SAUDADE)  by Cicero Euclides - Cicero Euclides (youtube).mp3" type="audio/mpeg">
+    </audio>
 
-    if (promessa !== undefined) {
-      promessa.then(_ => {
-        // Autoplay funcionou!
-        console.log("Música tocando automaticamente.");
-      }).catch(error => {
-        // Autoplay foi bloqueado pelo navegador.
-        // Vamos esperar o primeiro clique/toque na tela para iniciar.
-        console.log("Aguardando interação para tocar...");
-        document.body.addEventListener('click', () => {
-          audio.play();
-        }, { once: true }); // {once: true} garante que o evento só ocorra uma vez
-      });
-    }
-  </script>
+    <script>
+        // SCRIPT PARA A MÚSICA TOCAR
+        const audio = document.getElementById('musicaFundo');
+        const audioFinal = document.getElementById('musicaFinal');
+        const audioSad = document.getElementById('musicaSad');
+
+        // Define o volume (0.0 a 1.0). 0.3 é um volume ambiente agradável.
+        audio.volume = 0.3;
+
+        // Tenta tocar assim que a página abre
+        const promessa = audio.play();
+
+        if (promessa !== undefined) {
+            promessa.then(_ => {
+                console.log("Música tocando automaticamente.");
+            }).catch(error => {
+                console.log("Aguardando interação para tocar...");
+                document.body.addEventListener('click', () => {
+                    audio.play();
+                }, { once: true });
+            });
+        }
+
+        // --- VARIÁVEIS ---
+        const btnQuero = document.getElementById('btnQuero');
+        const btnDesistir = document.getElementById('btnDesistir');
+        
+        const overlayFinal = document.getElementById('overlayFinal');
+        const overlaySad = document.getElementById('overlaySad');
+        
+        const countdownElement = document.getElementById('countdown');
+        const countdownSadElement = document.getElementById('countdownSad');
+        
+        let heartsInterval;
+        let sadImagesInterval;
+
+        // COLOQUE SEU NUMERO AQUI!
+        const whatsappNumber = "5531986496311";
+
+        // --- LÓGICA BOTÃO "TE QUERO AMOR" ---
+        btnQuero.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // 1. Troca a música
+            audio.pause();
+            audioSad.pause(); // Garante que a triste não toca
+            audioFinal.volume = 0.5;
+            audioFinal.play();
+
+            // 2. Mostrar o overlay preto FELIZ
+            overlayFinal.style.display = 'flex';
+
+            // 3. Iniciar chuva de corações
+            startRisingHearts();
+
+            setTimeout(() => {
+                clearInterval(heartsInterval);
+            }, 2000);
+
+            // 4. Iniciar contagem regressiva
+            let timeLeft = 45;
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                countdownElement.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    // Redirecionar para o WhatsApp
+                    const msg = encodeURIComponent("Eu te amo e escolho você");
+                    window.location.href = `https://wa.me/${whatsappNumber}?text=${msg}`;
+                }
+            }, 1000);
+        });
+
+        // --- LÓGICA BOTÃO "DESISTIR ASSIM MESMO" ---
+        btnDesistir.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // 1. Troca a música (Fundo -> Triste)
+            audio.pause();
+            audioFinal.pause(); // Garante que a feliz não toca
+            audioSad.volume = 0.5;
+            audioSad.play();
+
+            // 2. Mostra o overlay preto TRISTE
+            overlaySad.style.display = 'flex';
+
+            // 3. Iniciar chuva de corações partidos (EMOJI)
+            startBrokenHearts();
+
+            // 4. Iniciar contagem regressiva para DESISTIR
+            let timeLeftSad = 45;
+            const timerIntervalSad = setInterval(() => {
+                timeLeftSad--;
+                countdownSadElement.textContent = timeLeftSad;
+
+                if (timeLeftSad <= 0) {
+                    clearInterval(timerIntervalSad);
+                    // Redirecionar para o WhatsApp
+                    const msg = encodeURIComponent("me desculpa, você não é minha escolha");
+                    window.location.href = `https://wa.me/${whatsappNumber}?text=${msg}`;
+                }
+            }, 1000);
+        });
+
+        // FUNÇÃO CORAÇÕES FELIZES
+        function startRisingHearts() {
+            heartsInterval = setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-rise');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+                heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+
+                document.getElementById('overlayFinal').appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }, 100);
+        }
+
+        // FUNÇÃO CORAÇÕES PARTIDOS (EMOJI 💔)
+        function startBrokenHearts() {
+            sadImagesInterval = setInterval(() => {
+                const brokenHeart = document.createElement('div');
+                brokenHeart.classList.add('heart-broken-rise');
+                brokenHeart.innerHTML = '💔'; // EMOJI DE CORAÇÃO PARTIDO
+                
+                brokenHeart.style.left = Math.random() * 100 + 'vw';
+                brokenHeart.style.animationDuration = Math.random() * 4 + 4 + 's'; // Sobe mais devagar que os felizes
+                brokenHeart.style.fontSize = Math.random() * 30 + 20 + 'px'; // Tamanho variado
+
+                document.getElementById('overlaySad').appendChild(brokenHeart);
+
+                setTimeout(() => {
+                    brokenHeart.remove();
+                }, 8000); // Remove depois de subir
+            }, 300); // Cria a cada 300ms
+        }
+    </script>
 </body>
+
 </html>

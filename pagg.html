@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sim ou Não</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      /* Fundo Rosa (Mesmo estilo da outra lista) */
+      background-color: #ffe6e6;
+      background-image: linear-gradient(to bottom, #ffe6e6, #ffcccc);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    aside {
+      width: 20%;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      padding: 20px;
+      pointer-events: none;
+    }
+
+    /* ===== GIFS PADRÃO ===== */
+    .gif-lateral {
+      width: 130px;
+      max-width: 100%;
+      height: auto;
+      opacity: 0.9;
+    }
+
+    .coluna-central {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      flex-grow: 1;
+      gap: 30px;
+      padding: 20px 0;
+    }
+
+    /* ===== GIFS CENTRAIS ===== */
+    .gifs-centrais {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* ===== FOTOS ===== */
+    .fotos {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .foto-casal {
+      width: 170px;
+      max-width: 32vw;
+      border-radius: 22px;
+      border: 5px solid white;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.15); /* Sombra um pouco mais suave */
+      transition: transform 0.3s ease;
+    }
+
+    .foto-casal:hover {
+      transform: scale(1.06);
+    }
+
+    .area-jogo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .message {
+      font-size: 1.8rem;
+      /* MUDANÇA: Cor escura para aparecer no fundo rosa */
+      color: #8e0318; 
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      width: 140px;
+      height: 45px;
+      background: white;
+      /* MUDANÇA: Borda combinando com o tema rosa */
+      border: 3px solid #d63384; 
+      color: #8e0318;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 50px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #fff0f5;
+      transform: scale(1.05);
+    }
+
+    @media (min-width: 768px) {
+      aside {
+        display: flex;
+      }
+
+      .message {
+        font-size: 2.5rem;
+      }
+
+      button {
+        width: 200px;
+        height: 55px;
+      }
+
+      .foto-casal {
+        width: 260px;
+        max-width: none;
+      }
+
+      .gif-lateral {
+        width: 150px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <aside>
+    <img class="gif-lateral" src="cry-crying.gif">
+    <img class="gif-lateral" src="spongebob-crying.webp">
+    <img class="gif-lateral" src="sailormoon-crying.gif">
+    <img class="gif-lateral" src="rabbit-cry.gif">
+  </aside>
+
+  <div class="coluna-central">
+
+    <div class="gifs-centrais">
+      <img class="gif-lateral" src="crying-cat-sad-kitty.gif">
+      <img class="gif-lateral" src="cat-crying-cat.gif">
+      <img class="gif-lateral" src="kangen-sedih.gif">
+      <img class="gif-lateral" src="stillesque.gif">
+      <img class="gif-lateral" src="cat-sad.gif">
+    </div>
+
+    <div class="fotos">
+      <img class="foto-casal" src="veio 3.jpg">
+      <img class="foto-casal" src="velinhos.png">
+      <img class="foto-casal" src="veio2.jfif">
+    </div>
+
+    <div class="area-jogo">
+      <div class="message">Tem certeza que quer desistir da gente?</div>
+      <div class="buttons">
+        <button id="sim">SIM</button>
+        <button id="nao">NÃO</button>
+      </div>
+    </div>
+
+    <div class="gifs-centrais">
+      <img class="gif-lateral" src="potz-content-potz.gif">
+      <img class="gif-lateral" src="hamsti-hamster.gif">
+      <img class="gif-lateral" src="crying-cat-sad-cat (1).gif">
+      <img class="gif-lateral" src="kuromi-crying.gif">
+      <img class="gif-lateral" src="crying-sad.gif">
+    </div>
+
+  </div>
+
+  <aside>
+    <img class="gif-lateral" src="cat-crying-cat.gif">
+    <img class="gif-lateral" src="crying-harlas.webp">
+    <img class="gif-lateral" src="sad-sad-cat.gif">
+    <img class="gif-lateral" src="sad-hello-kitty-crying-hello-kitty.gif">
+  </aside>
+
+  <audio id="musicaFundo" loop>
+    <source src="Bruno Mars - When I Was Your Man - LatinHype (youtube).mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const btnSim = document.getElementById("sim");
+    const btnNao = document.getElementById("nao");
+
+    function fugir() {
+      const larguraJanela = window.innerWidth;
+      const alturaJanela = window.innerHeight;
+      const larguraBtn = btnSim.offsetWidth;
+      const alturaBtn = btnSim.offsetHeight;
+      const rectNao = btnNao.getBoundingClientRect();
+
+      let novaEsquerda, novaTopo, colidiu = true;
+
+      while (colidiu) {
+        novaEsquerda = Math.random() * (larguraJanela - larguraBtn);
+        novaTopo = Math.random() * (alturaJanela - alturaBtn);
+
+        // Verifica se a nova posição sobrepõe o botão NÃO
+        if (
+          novaEsquerda + larguraBtn < rectNao.left ||
+          novaEsquerda > rectNao.right ||
+          novaTopo + alturaBtn < rectNao.top ||
+          novaTopo > rectNao.bottom
+        ) {
+          colidiu = false;
+        }
+      }
+
+      btnSim.style.position = "absolute";
+      btnSim.style.left = `${novaEsquerda}px`;
+      btnSim.style.top = `${novaTopo}px`;
+    }
+
+    btnSim.addEventListener("mouseover", fugir);
+    btnSim.addEventListener("touchstart", e => {
+      e.preventDefault();
+      fugir();
+    });
+
+    // Botão NÃO leva para pag2.html
+    btnNao.addEventListener("click", () => {
+      window.location.href = "pag2.html";
+    });
+
+    // Música de Fundo
+    const audio = document.getElementById('musicaFundo');
+    audio.volume = 0.2;
+
+    const promessa = audio.play();
+    if (promessa !== undefined) {
+      promessa.catch(() => {
+        document.body.addEventListener('click', () => {
+          audio.play();
+        }, { once: true });
+      });
+    }
+  </script>
+
+</body>
+</html>
